@@ -21,12 +21,10 @@ public class MouseInput : MonoBehaviour
             Plane dragPlane = new Plane(Camera.main.transform.forward, transform.position);
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            float enter = 0.0f;
-            if (dragPlane.Raycast(camRay, out enter))
-            {
-                Vector3 fingerPosition = camRay.GetPoint(enter) + Vector3.down * 2;
+            if (Physics.Raycast(camRay, out var hit))
+            { 
+                Vector3 fingerPosition = hit.point;
                 _exlode.Explode(fingerPosition);
-                Debug.Log(fingerPosition);
             }
         }
     }
