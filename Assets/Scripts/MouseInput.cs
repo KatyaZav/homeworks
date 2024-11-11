@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseInput : MonoBehaviour
@@ -8,24 +6,22 @@ public class MouseInput : MonoBehaviour
     private const int _rightMouse = 1;
 
     [SerializeField] Explosion _exlode;
+
+    private IDragable _dragableObject;
+    
+    private Ray CameraRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+    private Plane DragPlane => new Plane(Camera.main.transform.forward, transform.position);
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(_leftMouse))
-        {
-
-        }
-
         if (Input.GetMouseButtonDown(_rightMouse))
         {
-            Plane dragPlane = new Plane(Camera.main.transform.forward, transform.position);
-            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(camRay, out var hit))
+            if (Physics.Raycast(CameraRay, out var hit))
             { 
                 Vector3 fingerPosition = hit.point;
                 _exlode.Explode(fingerPosition);
             }
         }
-    }
+    }  
+
 }

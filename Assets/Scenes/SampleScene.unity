@@ -430,8 +430,8 @@ GameObject:
   - component: {fileID: 870334661}
   - component: {fileID: 870334660}
   - component: {fileID: 870334659}
-  - component: {fileID: 870334658}
   - component: {fileID: 870334657}
+  - component: {fileID: 870334662}
   m_Layer: 6
   m_Name: fruit (2)
   m_TagString: Untagged
@@ -454,18 +454,6 @@ MonoBehaviour:
   _maxScale: 1.5
   _upPosition: 2
   _rigidbody: {fileID: 870334659}
---- !u!114 &870334658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870334656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &870334659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -530,6 +518,18 @@ Transform:
   - {fileID: 1183170827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870334662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870334656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &950032400
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +541,8 @@ GameObject:
   - component: {fileID: 950032401}
   - component: {fileID: 950032402}
   - component: {fileID: 950032403}
-  - component: {fileID: 950032405}
   - component: {fileID: 950032404}
+  - component: {fileID: 950032405}
   m_Layer: 6
   m_Name: fruit
   m_TagString: Untagged
@@ -744,8 +744,8 @@ GameObject:
   - component: {fileID: 978397872}
   - component: {fileID: 978397871}
   - component: {fileID: 978397870}
-  - component: {fileID: 978397869}
   - component: {fileID: 978397868}
+  - component: {fileID: 978397873}
   m_Layer: 6
   m_Name: fruit (1)
   m_TagString: Untagged
@@ -768,18 +768,6 @@ MonoBehaviour:
   _maxScale: 1.5
   _upPosition: 2
   _rigidbody: {fileID: 978397870}
---- !u!114 &978397869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978397867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &978397870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -844,6 +832,18 @@ Transform:
   - {fileID: 2069781716}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &978397873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978397867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1044741894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1124,8 +1124,8 @@ GameObject:
   - component: {fileID: 1535465264}
   - component: {fileID: 1535465263}
   - component: {fileID: 1535465262}
-  - component: {fileID: 1535465261}
   - component: {fileID: 1535465260}
+  - component: {fileID: 1535465265}
   m_Layer: 6
   m_Name: fruit (3)
   m_TagString: Untagged
@@ -1148,18 +1148,6 @@ MonoBehaviour:
   _maxScale: 1.5
   _upPosition: 2
   _rigidbody: {fileID: 1535465262}
---- !u!114 &1535465261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535465259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1535465262
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1224,6 +1212,18 @@ Transform:
   - {fileID: 1248851258}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1535465265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535465259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1718452827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,8 +1340,8 @@ GameObject:
   - component: {fileID: 1861661174}
   - component: {fileID: 1861661173}
   - component: {fileID: 1861661172}
-  - component: {fileID: 1861661171}
   - component: {fileID: 1861661170}
+  - component: {fileID: 1861661175}
   m_Layer: 6
   m_Name: fruit (4)
   m_TagString: Untagged
@@ -1364,18 +1364,6 @@ MonoBehaviour:
   _maxScale: 1.5
   _upPosition: 2
   _rigidbody: {fileID: 1861661172}
---- !u!114 &1861661171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1861661169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1861661172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1440,6 +1428,18 @@ Transform:
   - {fileID: 1044741895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1861661175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861661169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47fd4f8942527847a8d63fe065a10b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2055269766
 PrefabInstance:
   m_ObjectHideFlags: 0

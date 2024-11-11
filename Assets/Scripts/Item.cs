@@ -24,7 +24,6 @@ public class Item : MonoBehaviour, IDragable
     public void OnDrop()
     {
         _rigidbody.isKinematic = false;
-
         transform.localScale = _minScale * Vector3.one;
     }
 
