@@ -9,6 +9,8 @@ public class Item : MonoBehaviour, IDragable
     private float _minScale;
     private float _normalPosition;
 
+    public Vector3 LocalTransform => transform.position;
+
     private void Start()
     {
         _minScale = transform.localScale.x;
