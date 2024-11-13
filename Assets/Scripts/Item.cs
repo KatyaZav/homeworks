@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Item : MonoBehaviour, IDragable
+public class Item : MonoBehaviour, IDragable, IThrowable
 {
     [SerializeField] private float _maxScale;
     [SerializeField] private float _upPosition;
@@ -38,5 +38,10 @@ public class Item : MonoBehaviour, IDragable
         var newPosition = transform.position;
         newPosition.y = _upPosition;
         transform.position = newPosition; 
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        _rigidbody.AddForce(force, ForceMode.Impulse);
     }
 }

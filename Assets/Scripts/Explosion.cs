@@ -16,9 +16,9 @@ public class Explosion : MonoBehaviour
 
         foreach (var obj in objects)
         {
-            if (obj.TryGetComponent(out Rigidbody rigidbody))
+            if (obj.TryGetComponent(out IThrowable explosion))
             {
-                rigidbody.AddForce((obj.transform.position - position).normalized * _force, ForceMode.Impulse);
+                explosion.AddForce((obj.transform.position - position).normalized * _force);
             }
         }
     }
