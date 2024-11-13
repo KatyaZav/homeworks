@@ -11,16 +11,33 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private ParticleSystem _particles;
+    [SerializeField] private Transform[] _points;
+
+    private Vector3[] _patrolPoints;
 
     void Start()
     {
+        Init();
+        SpawnEnemy();        
+    }
+
+    private void SpawnEnemy()
+    {
         var enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
-        enemy.Init();
 
         IAction triggerdAction = GetTriggerdState(_triggerdAction, enemy);
         IAction stayingAction = GetStayingState(_stayingAction, enemy);
 
         enemy.Init(triggerdAction, stayingAction);
+    }
+
+    private void Init()
+    {
+        _patrolPoints = new Vector3[_points.Length];
+        for (var i = 0; i < _points.Length; i++)
+        {
+            _patrolPoints[i] = _points[i].position;
+        }
     }
 
     private IAction GetStayingState(StayingAction stayingAction, Enemy enemy)
@@ -30,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
             case StayingAction.stay:
                 return new StayAction();
             case StayingAction.patrol:
-                break;
+                return new PatrolAction(enemy, _patrolPoints);
             case StayingAction.chaotic:
                 return new ChoticMoveAction(1, enemy);
         }

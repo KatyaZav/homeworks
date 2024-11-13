@@ -15,6 +15,7 @@ public class Mover
 
     public void ChangeVelocity(Vector3 direction)
     {
+        //Debug.Log(direction.normalized);
         _rigidbody.velocity = direction.normalized * _speed;
     }
 }

@@ -18,11 +18,6 @@ public class Enemy : MonoBehaviour
 
     public Mover GetMover() => _mover;
 
-    public void Init()
-    {
-        _mover = new Mover(3, _rigidbody);
-    }
-
     private void Update()
     {
         _currentAction?.Progressing();
@@ -47,10 +42,12 @@ public class Enemy : MonoBehaviour
 
     public void Init(IAction triggerdAction, IAction stayingAction)
     {
+        _mover = new Mover(3, _rigidbody);
+
         _triggerdAction = triggerdAction;
         _stayingAction = stayingAction;
 
-        _currentAction = _stayingAction;
+        ChangeAction(_stayingAction);
     }
 
     private void ChangeAction(IAction action)
