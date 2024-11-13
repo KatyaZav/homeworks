@@ -6,8 +6,7 @@ public class MouseInput : MonoBehaviour
     private const int _rightMouse = 1;
 
     [SerializeField] Explosion _exlode;
-
-    private IDragable _dragableObject;
+    [SerializeField] DragManager _drag;
     
     private Ray CameraRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     private Plane DragPlane(Vector3 itemTransform) => new Plane(Camera.main.transform.forward, itemTransform);
@@ -16,41 +15,28 @@ public class MouseInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(_leftMouse))
         {
-            OnLeftMouseDown();
+            if (TryGetDragable(out var item))
+                _drag.Raise(item);
         }
 
-        if (Input.GetMouseButtonUp(_leftMouse) && _dragableObject != null)
+        if (Input.GetMouseButtonUp(_leftMouse) && _drag.IsDrag)
         {
-            _dragableObject.OnDrop();
-            _dragableObject = null;
+            _drag.Drop();
         }
 
-        if (Input.GetMouseButton(_leftMouse) && _dragableObject != null)
+        if (Input.GetMouseButton(_leftMouse) && _drag.IsDrag)
         {
-            OnLeftMouse();
+            var position = GetMousePosition(_drag.ItemTransform);
+            _drag.Drag(position);
         }
 
         if (Input.GetMouseButtonDown(_rightMouse))
         {
-            OnRightMouseDown();
+            Explode();
         }
     }  
-
-    private void OnLeftMouseDown()
-    {
-        if (Physics.Raycast(CameraRay, out var hit))
-        {
-            var touchedObject = hit.collider.gameObject;
-
-            if (touchedObject.TryGetComponent(out IDragable dragObject))
-            {
-                _dragableObject = dragObject;
-                dragObject.OnRaise();
-            }
-        }
-    }
-
-    private void OnRightMouseDown()
+    
+    private void Explode()
     {
         if (Physics.Raycast(CameraRay, out var hit))
         {
@@ -59,12 +45,45 @@ public class MouseInput : MonoBehaviour
         }
     }
 
-    private void OnLeftMouse()
+    private bool TryGetDragable(out IDragable item)
     {
-        if (DragPlane(_dragableObject.LocalTransform).Raycast(CameraRay, out float enter))
+        if (Physics.Raycast(CameraRay, out var hit))
         {
-            Vector3 fingerPosition = CameraRay.GetPoint(enter);
-            _dragableObject.OnDrag(fingerPosition);
+            var touchedObject = hit.collider.gameObject;
+
+            if (touchedObject.TryGetComponent(out IDragable dragObject))
+            {
+                item = dragObject;
+                return true;
+            }
         }
+
+        item = null;
+        return false;
+    }
+
+    private Vector3 GetMousePosition(Vector3 itemPosition)
+    {
+        if (DragPlane(itemPosition).Raycast(CameraRay, out float enter))
+        {
+            return CameraRay.GetPoint(enter);
+        }
+
+        Debug.LogError("Camera ray not collide");
+        return Vector3.zero;
+    }
+
+    private Vector3 GetMouseDropPosition()
+    {
+        //if (DragPlane(_dragableObject.LocalTransform).Raycast(CameraRay, out float enter))
+        if (Physics.Raycast(CameraRay, out var hit))
+        {
+            return hit.point;
+            //Vector3 fingerPosition = CameraRay.GetPoint(enter);
+            
+        }
+
+        Debug.LogError("Camera ray not collide");
+        return Vector3.zero;
     }
 }
