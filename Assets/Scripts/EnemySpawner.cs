@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         var enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
+        enemy.Init();
 
         IAction triggerdAction = GetTriggerdState(_triggerdAction, enemy);
         IAction stayingAction = GetStayingState(_stayingAction, enemy);
@@ -31,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
             case StayingAction.patrol:
                 break;
             case StayingAction.chaotic:
-                break;
+                return new ChoticMoveAction(1, enemy);
         }
 
         Debug.LogError("Didn't found state");

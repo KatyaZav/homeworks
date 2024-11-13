@@ -7,13 +7,23 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float _agroRaduis;
+    [SerializeField] private Rigidbody _rigidbody;
 
+    private Mover _mover;
+    
     private IAction _triggerdAction;
     private IAction _stayingAction;
 
     private IAction _currentAction;
-    
-    void Update()
+
+    public Mover GetMover() => _mover;
+
+    public void Init()
+    {
+        _mover = new Mover(3, _rigidbody);
+    }
+
+    private void Update()
     {
         _currentAction?.Progressing();
 

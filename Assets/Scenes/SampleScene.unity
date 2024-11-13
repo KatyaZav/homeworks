@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: -8653588965422730164, guid: 93f7e4f618df23244b08a938bdafef59, type: 3}
-  _stayingAction: 0
+  _stayingAction: 2
   _triggerdAction: 2
   _particles: {fileID: 8715234624744902987, guid: cf91d5affb7dae34198e7ee9c1c99689, type: 3}
 --- !u!1 &946542856
