@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DragManager : MonoBehaviour
@@ -10,11 +7,20 @@ public class DragManager : MonoBehaviour
     public Vector3 ItemTransform => _dragableObject.LocalTransform;
     public bool IsDrag => _dragableObject != null;
 
-    public void Raise(IDragable dragableObject)
+    public bool TryRaise(GameObject touchedObject)
     {
-        _dragableObject = dragableObject;
-        _dragableObject.OnRaise();
+        if (touchedObject == null)
+            return false;
+
+        if (touchedObject.TryGetComponent(out IDragable dragObject))
+        {
+            Raise(dragObject);
+            return true;
+        }
+
+        return false;
     }
+
 
     public void Drop()
     {
@@ -25,5 +31,10 @@ public class DragManager : MonoBehaviour
     public void Drag(Vector3 fingerPosition)
     {
         _dragableObject.OnDrag(fingerPosition);
+    }
+    private void Raise(IDragable dragableObject)
+    {
+        _dragableObject = dragableObject;
+        _dragableObject.OnRaise();
     }
 }

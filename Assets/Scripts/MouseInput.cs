@@ -15,8 +15,8 @@ public class MouseInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(_leftMouse))
         {
-            if (TryGetDragable(out var item))
-                _drag.Raise(item);
+            var item = GetTouchedGameObject();
+            _drag.TryRaise(item);
         }
 
         if (Input.GetMouseButtonUp(_leftMouse) && _drag.IsDrag)
@@ -32,34 +32,19 @@ public class MouseInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(_rightMouse))
         {
-            Explode();
+            Vector3 fingerPosition = GetMouseFloorPosition();
+            _exlode.Explode(fingerPosition); 
         }
     }  
-    
-    private void Explode()
+
+    private GameObject GetTouchedGameObject()
     {
         if (Physics.Raycast(CameraRay, out var hit))
         {
-            Vector3 fingerPosition = hit.point;
-            _exlode.Explode(fingerPosition);
-        }
-    }
-
-    private bool TryGetDragable(out IDragable item)
-    {
-        if (Physics.Raycast(CameraRay, out var hit))
-        {
-            var touchedObject = hit.collider.gameObject;
-
-            if (touchedObject.TryGetComponent(out IDragable dragObject))
-            {
-                item = dragObject;
-                return true;
-            }
+            return hit.collider.gameObject;            
         }
 
-        item = null;
-        return false;
+        return null;
     }
 
     private Vector3 GetMousePosition(Vector3 itemPosition)
@@ -73,14 +58,11 @@ public class MouseInput : MonoBehaviour
         return Vector3.zero;
     }
 
-    private Vector3 GetMouseDropPosition()
+    private Vector3 GetMouseFloorPosition()
     {
-        //if (DragPlane(_dragableObject.LocalTransform).Raycast(CameraRay, out float enter))
         if (Physics.Raycast(CameraRay, out var hit))
         {
-            return hit.point;
-            //Vector3 fingerPosition = CameraRay.GetPoint(enter);
-            
+            return hit.point;            
         }
 
         Debug.LogError("Camera ray not collide");
