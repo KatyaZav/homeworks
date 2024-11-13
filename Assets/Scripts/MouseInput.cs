@@ -5,12 +5,18 @@ public class MouseInput : MonoBehaviour
     private const int _leftMouse = 0;
     private const int _rightMouse = 1;
 
-    [SerializeField] Explosion _exlode;
-    [SerializeField] DragManager _drag;
+    [SerializeField] private Explosion _exlode;
+    
+    private DragManager _drag;
     
     private Ray CameraRay => Camera.main.ScreenPointToRay(Input.mousePosition);
     private Plane DragPlane(Vector3 itemTransform) => new Plane(Camera.main.transform.forward, itemTransform);
-    
+
+    private void Start()
+    {
+        _drag = new DragManager();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(_leftMouse))

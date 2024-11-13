@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DragManager : MonoBehaviour
+public class DragManager
 {
     private IDragable _dragableObject;
 
