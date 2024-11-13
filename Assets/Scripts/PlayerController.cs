@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        _mover = new Mover(5, _rigidbody);
+        _mover = new Mover(10, _rigidbody);
         _rotator = new Rotator(10, transform);
     }
 

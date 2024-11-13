@@ -149,5 +149,5 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 64
-  _agroRaduis: 5
+  _agroRaduis: 12
   _rigidbody: {fileID: 7902261212197601386}

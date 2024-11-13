@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private ParticleSystem _particles;
     [SerializeField] private Transform[] _points;
+    [SerializeField] private Transform _player;
 
     private Vector3[] _patrolPoints;
 
@@ -61,11 +62,11 @@ public class EnemySpawner : MonoBehaviour
         switch (action)
         {
             case TriggerdAction.angry:
-                break;
+                return new ChaseAction(enemy, _player);
             case TriggerdAction.destroyable:
                 return new DestroyAction(enemy.gameObject, _particles);
             case TriggerdAction.shy:
-                break;
+                return new AwayAction(enemy, _player);
         }
 
         Debug.LogError("Didn't found state");

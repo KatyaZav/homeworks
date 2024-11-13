@@ -14,7 +14,6 @@ public class ChoticMoveAction : IAction
         _timeBetweenChange = timeBetweenChange;
 
         _enemy = thisObject;
-        _mover = thisObject.GetMover();
     }
 
     private float GetRandom() => UnityEngine.Random.Range(-1f, 1f);
@@ -22,6 +21,8 @@ public class ChoticMoveAction : IAction
 
     public void Activate()
     {
+        _mover = _enemy.GetMover();
+        
         _curentTime = 0;
         ChangeMovePoint();
     }

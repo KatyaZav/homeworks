@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
 
     public void Init(IAction triggerdAction, IAction stayingAction)
     {
-        _mover = new Mover(3, _rigidbody);
+        _mover = new Mover(5, _rigidbody);
 
         _triggerdAction = triggerdAction;
         _stayingAction = stayingAction;
@@ -55,5 +55,10 @@ public class Enemy : MonoBehaviour
         _currentAction?.Deactivate();
         _currentAction = action;
         _currentAction.Activate();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, _agroRaduis);
     }
 }

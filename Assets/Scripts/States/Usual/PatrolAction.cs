@@ -39,7 +39,6 @@ public class PatrolAction : IAction
 
         if (direction.magnitude < StopDirection)
         {
-            Debug.Log("New path");
             _curentPoint = _patrolPoints.Dequeue();
             _patrolPoints.Enqueue(_curentPoint);
             _curentPoint = _patrolPoints.Peek();
