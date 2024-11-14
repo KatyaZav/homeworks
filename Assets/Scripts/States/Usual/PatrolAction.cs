@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolAction : IAction
+public class PatrolAction : IState
 {
     private const float StopDirection = 1.6f;
 
@@ -21,18 +21,18 @@ public class PatrolAction : IAction
         }
     }
 
-    public void Activate()
+    public void Enter()
     {
         _curentPoint = _patrolPoints.Peek();
         _mover = _enemy.GetMover();
     }
 
-    public void Deactivate()
+    public void Exit()
     {
         _mover.ChangeVelocity(Vector3.zero);
     }
 
-    public void Progressing()
+    public void Update()
     {
         var direction = _curentPoint - _enemy.transform.position;
         _mover.ChangeVelocity(direction);

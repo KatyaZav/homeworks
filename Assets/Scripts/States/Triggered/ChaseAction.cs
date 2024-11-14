@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChaseAction : IAction
+public class ChaseAction : IState
 {
     private Enemy _enemy;
     private Mover _mover;
@@ -16,17 +16,17 @@ public class ChaseAction : IAction
 
     }
 
-    public void Activate()
+    public void Enter()
     {
         _mover = _enemy.GetMover();
     }
 
-    public void Deactivate()
+    public void Exit()
     {
         _mover.ChangeVelocity(Vector3.zero);
     }
 
-    public void Progressing()
+    public void Update()
     {
         Vector3 direction = _chasedObject.transform.position - _curentTransform.position;
         _mover.ChangeVelocity(direction);

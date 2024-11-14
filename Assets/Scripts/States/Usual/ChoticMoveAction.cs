@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ChoticMoveAction : IAction
+public class ChoticMoveAction : IState
 {
     private float _timeBetweenChange;
     private float _curentTime;
@@ -19,7 +19,7 @@ public class ChoticMoveAction : IAction
     private float GetRandom() => UnityEngine.Random.Range(-1f, 1f);
     private Vector3 GetRandomVector() => new Vector3(GetRandom(), 0, GetRandom()); 
 
-    public void Activate()
+    public void Enter()
     {
         _mover = _enemy.GetMover();
         
@@ -27,12 +27,12 @@ public class ChoticMoveAction : IAction
         ChangeMovePoint();
     }
 
-    public void Deactivate()
+    public void Exit()
     {
         _mover.ChangeVelocity(Vector3.zero);
     }
 
-    public void Progressing()
+    public void Update()
     {
         _curentTime += Time.deltaTime;
 

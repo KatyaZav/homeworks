@@ -26,8 +26,8 @@ public class EnemySpawner : MonoBehaviour
     {
         var enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
 
-        IAction triggerdAction = GetTriggerdState(_triggerdAction, enemy);
-        IAction stayingAction = GetStayingState(_stayingAction, enemy);
+        IState triggerdAction = GetTriggerdState(_triggerdAction, enemy);
+        IState stayingAction = GetStayingState(_stayingAction, enemy);
 
         enemy.Init(triggerdAction, stayingAction);
     }
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private IAction GetStayingState(StayingAction stayingAction, Enemy enemy)
+    private IState GetStayingState(StayingAction stayingAction, Enemy enemy)
     {
         switch (stayingAction)
         {
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
         return new StayAction();
     }
 
-    private IAction GetTriggerdState(TriggerdAction action, Enemy enemy)
+    private IState GetTriggerdState(TriggerdAction action, Enemy enemy)
     {
         switch (action)
         {

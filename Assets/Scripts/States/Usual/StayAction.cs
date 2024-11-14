@@ -1,14 +1,14 @@
-public class StayAction : IAction
+public class StayAction : IState
 {
-    public void Activate()
+    public void Enter()
     {        
     }
 
-    public void Deactivate()
+    public void Exit()
     {
     }
 
-    public void Progressing()
+    public void Update()
     {
     }
 }

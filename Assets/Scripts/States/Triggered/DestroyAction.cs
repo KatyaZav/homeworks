@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DestroyAction : IAction
+public class DestroyAction : IState
 {
     private GameObject _thisObject;
     private ParticleSystem _particles;
@@ -11,17 +11,17 @@ public class DestroyAction : IAction
         _particles = particles;
     }
 
-    public void Activate()
+    public void Enter()
     {
         GameObject.Instantiate(_particles, _thisObject.transform.position, _thisObject.transform.rotation);
         GameObject.Destroy(_thisObject);
     }
 
-    public void Deactivate()
+    public void Exit()
     {
     }
 
-    public void Progressing()
+    public void Update()
     {
     }
 }

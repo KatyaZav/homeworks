@@ -11,16 +11,16 @@ public class Enemy : MonoBehaviour
 
     private Mover _mover;
     
-    private IAction _triggerdAction;
-    private IAction _stayingAction;
+    private IState _triggerdAction;
+    private IState _stayingAction;
 
-    private IAction _currentAction;
+    private IState _currentAction;
 
     public Mover GetMover() => _mover;
 
     private void Update()
     {
-        _currentAction?.Progressing();
+        _currentAction?.Update();
 
         CheakAgroZone();
     }
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Init(IAction triggerdAction, IAction stayingAction)
+    public void Init(IState triggerdAction, IState stayingAction)
     {
         _mover = new Mover(5, _rigidbody);
 
@@ -50,11 +50,11 @@ public class Enemy : MonoBehaviour
         ChangeAction(_stayingAction);
     }
 
-    private void ChangeAction(IAction action)
+    private void ChangeAction(IState action)
     {
-        _currentAction?.Deactivate();
+        _currentAction?.Exit();
         _currentAction = action;
-        _currentAction.Activate();
+        _currentAction.Enter();
     }
 
     private void OnDrawGizmos()
