@@ -40,10 +40,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Init(IState triggerdAction, IState stayingAction)
+    public void Init()
     {
         _mover = new Mover(5, _rigidbody);
+    }
 
+    public void SetStates(IState triggerdAction, IState stayingAction)
+    {
         _triggerdAction = triggerdAction;
         _stayingAction = stayingAction;
 

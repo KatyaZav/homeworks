@@ -2,23 +2,19 @@ using UnityEngine;
 
 public class ChaseAction : IState
 {
-    private Enemy _enemy;
     private Mover _mover;
     private Transform _chasedObject;
     private Transform _curentTransform;
 
-    public ChaseAction(Enemy enemy, Transform chasedObject)
+    public ChaseAction(Mover mover, Transform currentObject, Transform chasedObject)
     {
-        _enemy = enemy;
+        _mover = mover;
         _chasedObject = chasedObject;
-
-        _curentTransform = _enemy.transform;
-
+        _curentTransform = currentObject;
     }
 
     public void Enter()
     {
-        _mover = _enemy.GetMover();
     }
 
     public void Exit()

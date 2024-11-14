@@ -6,14 +6,12 @@ public class ChoticMoveAction : IState
     private float _timeBetweenChange;
     private float _curentTime;
 
-    private Enemy _enemy;
     private Mover _mover;
 
-    public ChoticMoveAction(float timeBetweenChange, Enemy thisObject)
+    public ChoticMoveAction(float timeBetweenChange, Mover mover)
     {
         _timeBetweenChange = timeBetweenChange;
-
-        _enemy = thisObject;
+        _mover = mover;
     }
 
     private float GetRandom() => UnityEngine.Random.Range(-1f, 1f);
@@ -21,8 +19,6 @@ public class ChoticMoveAction : IState
 
     public void Enter()
     {
-        _mover = _enemy.GetMover();
-        
         _curentTime = 0;
         ChangeMovePoint();
     }

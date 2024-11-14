@@ -25,11 +25,12 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         var enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
+        enemy.Init();
 
         IState triggerdAction = GetTriggerdState(_triggerdAction, enemy);
         IState stayingAction = GetStayingState(_stayingAction, enemy);
 
-        enemy.Init(triggerdAction, stayingAction);
+        enemy.SetStates(triggerdAction, stayingAction);
     }
 
     private void Init()
@@ -48,9 +49,9 @@ public class EnemySpawner : MonoBehaviour
             case StayingAction.stay:
                 return new StayAction();
             case StayingAction.patrol:
-                return new PatrolAction(enemy, _patrolPoints);
+                return new PatrolAction(enemy.transform, enemy.GetMover(), _patrolPoints);
             case StayingAction.chaotic:
-                return new ChoticMoveAction(1, enemy);
+                return new ChoticMoveAction(1, enemy.GetMover());
         }
 
         Debug.LogError("Didn't found state");
@@ -62,11 +63,11 @@ public class EnemySpawner : MonoBehaviour
         switch (action)
         {
             case TriggerdAction.angry:
-                return new ChaseAction(enemy, _player);
+                return new ChaseAction(enemy.GetMover(), enemy.transform, _player);
             case TriggerdAction.destroyable:
                 return new DestroyAction(enemy.gameObject, _particles);
             case TriggerdAction.shy:
-                return new AwayAction(enemy, _player);
+                return new AwayAction(enemy.GetMover(), enemy.transform, _player);
         }
 
         Debug.LogError("Didn't found state");

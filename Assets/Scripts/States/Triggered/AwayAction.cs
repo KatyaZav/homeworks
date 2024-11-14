@@ -2,23 +2,21 @@ using UnityEngine;
 
 public class AwayAction : IState
 {
-    private Enemy _enemy;
     private Mover _mover;
     private Transform _chasedObject;
     private Transform _curentTransform;
 
-    public AwayAction(Enemy enemy, Transform chasedObject)
+    public AwayAction(Mover mover, Transform curentTransform, Transform chasedObject)
     {
-        _enemy = enemy;
+        _mover = mover;
         _chasedObject = chasedObject;
 
-        _curentTransform = _enemy.transform;
+        _curentTransform = curentTransform;
 
     }
 
     public void Enter()
     {
-        _mover = _enemy.GetMover();
     }
 
     public void Exit()

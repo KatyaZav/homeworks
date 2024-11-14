@@ -5,15 +5,17 @@ public class PatrolAction : IState
 {
     private const float StopDirection = 1.6f;
 
-    private Mover _mover;
-    private Enemy _enemy;
-    private Queue<Vector3> _patrolPoints = new Queue<Vector3>();
+    private Mover _mover;    
+    private Transform _objectTransform;
 
+    private Queue<Vector3> _patrolPoints = new Queue<Vector3>();
     private Vector3 _curentPoint;
 
-    public PatrolAction(Enemy enemy, Vector3[] points)
+    public PatrolAction(Transform transform, Mover mover, Vector3[] points)
     {
-        _enemy = enemy;
+        _objectTransform = transform;
+        _mover = mover;
+
 
         foreach(var point in points)
         {
@@ -24,7 +26,6 @@ public class PatrolAction : IState
     public void Enter()
     {
         _curentPoint = _patrolPoints.Peek();
-        _mover = _enemy.GetMover();
     }
 
     public void Exit()
@@ -34,7 +35,7 @@ public class PatrolAction : IState
 
     public void Update()
     {
-        var direction = _curentPoint - _enemy.transform.position;
+        var direction = _curentPoint - _objectTransform.transform.position;
         _mover.ChangeVelocity(direction);
 
         if (direction.magnitude < StopDirection)
