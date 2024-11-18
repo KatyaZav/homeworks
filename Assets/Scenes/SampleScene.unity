@@ -538,6 +538,8 @@ MonoBehaviour:
   _inputController: {fileID: 1221993026}
   _navMeshAgent: {fileID: 383575847}
   _animator: {fileID: 383575845}
+  _maxHealth: 10
+  _layerChangeValue: 0.3
 --- !u!1001 &398683098
 PrefabInstance:
   m_ObjectHideFlags: 0
