@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointZone : MonoBehaviour
+public class PointZone : MonoBehaviour, IInitable
 {
     [SerializeField] private InputController _inputController;
     [SerializeField] private GameObject _pointView;
@@ -29,16 +29,5 @@ public class PointZone : MonoBehaviour
     private void DisactivatePoint()
     {
         _pointView.SetActive(false);
-    }
-
-    void Start()
-    {
-        Init();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

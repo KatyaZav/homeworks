@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IInitable
 {
     public event Action PlayerStoped;
 
@@ -68,10 +68,5 @@ public class PlayerController : MonoBehaviour
         _previousState = true;
         _navigationMover.SetIsMoving(true);
         _navigationMover.SetPoint(vector);
-    }
-
-    void Start()
-    {
-        Init();
     }
 }
