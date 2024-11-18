@@ -51,6 +51,12 @@ public class PlayerController : MonoBehaviour, IInitable
         _health.HealthChanged += OnHealthChanged;
     }
 
+    public void TakeDamage(float damage)
+    {
+        _health.RemoveHealth(damage);
+        print(_health.CurretnHealth);
+    }
+
     private void OnHealthChanged(float obj)
     {
         if (_health.CurretnHealth / _maxHealth <= _layerChangeValue)

@@ -18,7 +18,7 @@ public class Health
     public void RemoveHealth(float health)
     {
         _currentHealth -= health;
-       
+        
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
