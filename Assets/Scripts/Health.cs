@@ -22,8 +22,9 @@ public class Health
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
-            HealthChanged?.Invoke(_currentHealth);
         }
+        
+        HealthChanged?.Invoke(_currentHealth);
     }
 
     public void AddHealth(float health)

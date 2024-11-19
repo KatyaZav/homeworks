@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour, IInitable
 {
+    private readonly int FullValue = 1, ZeroValue = 0;
+
     public event Action PlayerStoped;
 
     [Header("Components")]
@@ -14,11 +16,12 @@ public class PlayerController : MonoBehaviour, IInitable
     [Header("Settings")]
     [SerializeField] private float _maxHealth;
     [SerializeField, Range(0, 1)] private float _layerChangeValue = 0.3f;
-
+    
     private Health _health;
     private NavigationMover _navigationMover;
     private AnimatorView _animatorView;
     private bool _previousState;
+    private bool isDead;
 
     private void Update()
     {
@@ -54,18 +57,26 @@ public class PlayerController : MonoBehaviour, IInitable
     public void TakeDamage(float damage)
     {
         _health.RemoveHealth(damage);
+        _animatorView.GetDamage();
+
         print(_health.CurretnHealth);
     }
 
-    private void OnHealthChanged(float obj)
+    private void OnHealthChanged(float health)
     {
-        if (_health.CurretnHealth / _maxHealth <= _layerChangeValue)
+        if ((_health.CurretnHealth / _maxHealth) < _layerChangeValue)
         {
-            print("Смена анимации to injured");
+            _animatorView.SetEnjureLayerWeight(FullValue);
         }
         else
         {
-            print("animation change to normal");
+            _animatorView.SetEnjureLayerWeight(ZeroValue);
+        }
+
+        if (health == 0)
+        {
+            isDead = true;
+            _animatorView.Dead();
         }
     }
 
