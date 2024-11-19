@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour, IInitable
 
     private void Update()
     {
+        if (isDead)
+            return;
+
         if (_navigationMover.HasPath == false && _previousState == true)
         {
             PlayerStoped?.Invoke();
@@ -82,6 +85,9 @@ public class PlayerController : MonoBehaviour, IInitable
 
     private void OnLeftMouseClicked(Vector3 vector)
     {
+        if (isDead)
+            return;
+
         _previousState = true;
         _navigationMover.SetIsMoving(true);
         _navigationMover.SetPoint(vector);

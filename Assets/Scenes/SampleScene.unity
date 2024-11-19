@@ -3337,7 +3337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d899e8a3b1e60ee449e87e6a5ccb3717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 4
+  _damage: 5
   _activateTime: 3
   _radius: 3
   _layerMask:
