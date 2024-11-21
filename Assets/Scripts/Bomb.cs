@@ -7,7 +7,10 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private float _activateTime = 3f;
     [SerializeField] private float _radius;
+    [SerializeField] private AudioComponent _audioComponent;
 
+    [SerializeField] private AudioClip _tikClip, _destroyClip;
+    
     private bool _isActivate = false;
 
     void Update()
@@ -32,7 +35,7 @@ public class Bomb : MonoBehaviour
     }
 
     private List<IDamagable> GetDamagebleItemsInZone()
-    {
+    {      
         var items = Physics.OverlapSphere(transform.position, _radius);
         List<IDamagable> result = new List<IDamagable>();
 
@@ -49,6 +52,7 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator Timer(float time)
     {
+        _audioComponent.SetSoundLoop(_tikClip);
         _isActivate = true;
         var currentTime = time;
 
@@ -57,6 +61,9 @@ public class Bomb : MonoBehaviour
             currentTime -= Time.deltaTime;
             yield return null;
         }
+
+        _audioComponent.Stop();
+        _audioComponent.MakeNewSound(_destroyClip);
 
         var colliders = GetDamagebleItemsInZone();
         if (colliders.Count > 0)
