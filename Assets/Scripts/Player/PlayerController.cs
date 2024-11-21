@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour, IInitable, IDamagable
     public event Action<bool> Stoped;
 
     [Header("Components")]
-    [SerializeField] private InputController _inputController;
+    [SerializeField] private InputHandler _inputController;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private Animator _animator;
     [SerializeField] private PointZone _pointZone;

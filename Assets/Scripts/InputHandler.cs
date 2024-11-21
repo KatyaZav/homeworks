@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InputController : MonoBehaviour, IInitable
+public class InputHandler : MonoBehaviour, IInitable
 {
     private const int LeftMouseButton = 0;
 

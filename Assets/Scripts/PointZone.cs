@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PointZone : MonoBehaviour
 {
-    [SerializeField] private InputController _inputController;
+    [SerializeField] private InputHandler _inputController;
     [SerializeField] private GameObject _pointView;
     [SerializeField] private PlayerController _player;
 

@@ -953,9 +953,6 @@ MonoBehaviour:
   _damage: 4
   _activateTime: 3
   _radius: 3
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!23 &584772801
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1566,9 +1563,6 @@ MonoBehaviour:
   _damage: 4
   _activateTime: 3
   _radius: 3
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1001 &858716821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2418,7 +2412,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221993024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f56c94b4867b41b42a1c3ee41f8aa8db, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e60b89bda44b2d45976d548223bbd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1273101328
@@ -3307,7 +3301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b0fd72b7864684da4a2d7269700f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputController: {fileID: 1221993026}
+  _inputController: {fileID: 0}
   _pointView: {fileID: 1823262802}
   _player: {fileID: 383575848}
 --- !u!4 &1643190363
@@ -3360,9 +3354,6 @@ MonoBehaviour:
   _damage: 5
   _activateTime: 3
   _radius: 3
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!23 &1657793283
 MeshRenderer:
   m_ObjectHideFlags: 0
