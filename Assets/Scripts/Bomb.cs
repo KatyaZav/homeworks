@@ -7,18 +7,16 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private float _activateTime = 3f;
     [SerializeField] private float _radius;
-    [SerializeField] private LayerMask _layerMask;
 
     private bool _isActivate = false;
-    private Collider[] Player => Physics.OverlapSphere(transform.position, _radius, _layerMask.value);
 
     void Update()
     {
         if (_isActivate)
             return;
 
-        var collider = Player;
-        if (collider.Length == 0)
+        var collider = GetDamagebleItemsInZone();
+        if (collider.Count == 0)
             return;
 
         _isActivate = true;
@@ -33,6 +31,22 @@ public class Bomb : MonoBehaviour
         Gizmos.DrawSphere(transform.position, _radius);
     }
 
+    private List<IDamagable> GetDamagebleItemsInZone()
+    {
+        var items = Physics.OverlapSphere(transform.position, _radius);
+        List<IDamagable> result = new List<IDamagable>();
+
+        foreach (var item in items)
+        {
+            var damagable = item.GetComponent<IDamagable>();
+
+            if (damagable != null)
+                result.Add(damagable);
+        }
+
+        return result;
+    }
+
     private IEnumerator Timer(float time)
     {
         _isActivate = true;
@@ -44,12 +58,12 @@ public class Bomb : MonoBehaviour
             yield return null;
         }
 
-        var colliders = Player;
-        if (colliders.Length > 0)
+        var colliders = GetDamagebleItemsInZone();
+        if (colliders.Count > 0)
         {
             foreach (var collider in colliders)
             {
-                collider.gameObject.GetComponent<PlayerController>().TakeDamage(_damage);
+                collider.TakeDamage(_damage);
             }
         }
 

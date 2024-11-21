@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour, IInitable
+public class PlayerController : MonoBehaviour, IInitable, IDamagable
 {
     //public event Action Stoped;
     public event Action<float> Damaged;
