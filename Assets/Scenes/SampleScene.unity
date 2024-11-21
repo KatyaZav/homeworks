@@ -481,6 +481,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1429553679942676489, guid: c5f2b8d2425718241a40d8a7c43def73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 383575850}
+    - targetCorrespondingSourceObject: {fileID: 1429553679942676489, guid: c5f2b8d2425718241a40d8a7c43def73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 383575852}
   m_SourcePrefab: {fileID: 100100000, guid: c5f2b8d2425718241a40d8a7c43def73, type: 3}
 --- !u!1 &383575844 stripped
 GameObject:
@@ -546,7 +549,6 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 383575847}
   _animator: {fileID: 383575845}
   _maxHealth: 10
-  _layerChangeValue: 0.3
   _waitTime: 3
   _patrolRadius: 6
   _timeToChangeLocation: 3
@@ -573,6 +575,21 @@ CapsuleCollider:
   m_Height: 1.8304182
   m_Direction: 1
   m_Center: {x: 0, y: 0.8003389, z: -0}
+--- !u!114 &383575852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383575844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd5db9338be3cd438d73d84b1480b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 383575845}
+  _player: {fileID: 383575848}
+  _layerChangeValue: 0.3
 --- !u!1001 &398683098
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour, IInitable
 {
-    private readonly int FullValue = 1, ZeroValue = 0;
-
-    public event Action PlayerStoped;
+    //public event Action Stoped;
+    public event Action<float> Damaged;
+    public event Action<bool> Stoped;
 
     [Header("Components")]
     [SerializeField] private InputController _inputController;
@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour, IInitable
 
     [Header("Settings")]
     [SerializeField] private float _maxHealth;
-    [SerializeField, Range(0, 1)] private float _layerChangeValue = 0.3f;
 
     [SerializeField] private float _waitTime = 10f;
     [SerializeField] private float _patrolRadius = 3f;
@@ -26,18 +25,26 @@ public class PlayerController : MonoBehaviour, IInitable
     
     private Health _health;
     private NavigationMover _navigationMover;
-    private AnimatorView _animatorView;
 
     private IState _currentMoving, _pointMoving, _randomMoving;
 
     private bool isDead;
-    
+    private bool _previousState;
     private float _currentTime = 0;
+
+    public float MaxHealth => _maxHealth;
+    public bool IsGoing => _navigationMover.isGoing;
 
     private void Update()
     {
         if (isDead)
             return;
+
+        if (_navigationMover.HasPath != _previousState)
+        {
+            _previousState = _navigationMover.HasPath;
+            Stoped?.Invoke(_navigationMover.HasPath == false);
+        }
 
         _currentMoving.Update();
 
@@ -51,13 +58,6 @@ public class PlayerController : MonoBehaviour, IInitable
                 ChangeState(_randomMoving);
             }
         }
-
-        if (_navigationMover.HasPath == false)
-        {
-            PlayerStoped?.Invoke();
-        }
-        
-        _animatorView.SetRunning(_navigationMover.isGoing);
     }
 
     private void OnDestroy()
@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour, IInitable
     public void Init()
     {
         _navigationMover = new NavigationMover(_navMeshAgent);
-        _animatorView = new AnimatorView(_animator);
         _health = new Health(_maxHealth);
 
         _pointMoving = new PointMoving(_navigationMover);
@@ -85,26 +84,16 @@ public class PlayerController : MonoBehaviour, IInitable
     public void TakeDamage(float damage)
     {
         _health.RemoveHealth(damage);
-        _animatorView.GetDamage();
+        Damaged?.Invoke(_health.CurretnHealth);
 
         print(_health.CurretnHealth);
     }
 
     private void OnHealthChanged(float health)
-    {
-        if ((_health.CurretnHealth / _maxHealth) < _layerChangeValue)
-        {
-            _animatorView.SetEnjureLayerWeight(FullValue);
-        }
-        else
-        {
-            _animatorView.SetEnjureLayerWeight(ZeroValue);
-        }
-
+    {      
         if (health == 0)
         {
             isDead = true;
-            _animatorView.Dead();
         }
     }
 

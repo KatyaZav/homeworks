@@ -9,13 +9,13 @@ public class PointZone : MonoBehaviour, IInitable
     private void OnDestroy()
     {
         _inputController.LeftMouseClicked -= SetPoint;        
-        _player.PlayerStoped -= DisactivatePoint;
+        _player.Stoped -= DisactivatePoint;
     }
 
     public void Init()
     {
         _inputController.LeftMouseClicked += SetPoint;
-        _player.PlayerStoped += DisactivatePoint;
+        _player.Stoped += DisactivatePoint;
 
         _pointView.SetActive(false);
     }
@@ -26,8 +26,11 @@ public class PointZone : MonoBehaviour, IInitable
         transform.position = vector;
     }
 
-    private void DisactivatePoint()
+    private void DisactivatePoint(bool isStoped)
     {
-        _pointView.SetActive(false);
+        if (isStoped)
+        {
+            _pointView.SetActive(false);
+        }
     }
 }
