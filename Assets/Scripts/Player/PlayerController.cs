@@ -27,7 +27,9 @@ public class PlayerController : MonoBehaviour, IInitable
     private Health _health;
     private NavigationMover _navigationMover;
     private AnimatorView _animatorView;
-    private bool _previousState;
+
+    private IState _currentMoving, _pointMoving, _randomMoving;
+
     private bool isDead;
     
     private float _currentTime = 0;
@@ -37,22 +39,22 @@ public class PlayerController : MonoBehaviour, IInitable
         if (isDead)
             return;
 
-        if (_navigationMover.HasPath == false && _chaousCoroutine == null)
+        _currentMoving.Update();
+
+        if (_navigationMover.HasPath == false && _currentMoving != _randomMoving)
         {
             _currentTime += Time.deltaTime;
 
-            if (_currentTime > _waitTime && _chaousCoroutine == null)
+            if (_currentTime > _waitTime && _currentMoving != _randomMoving)
             {
-                _chaousCoroutine = StartCoroutine(ChaousMove());
+                print("player bored");
+                ChangeState(_randomMoving);
             }
         }
 
-        if (_navigationMover.HasPath == false && _previousState == true)
+        if (_navigationMover.HasPath == false)
         {
             PlayerStoped?.Invoke();
-
-            _previousState = false;
-            _navigationMover.SetIsMoving(false);
         }
         
         _animatorView.SetRunning(_navigationMover.isGoing);
@@ -70,10 +72,14 @@ public class PlayerController : MonoBehaviour, IInitable
         _animatorView = new AnimatorView(_animator);
         _health = new Health(_maxHealth);
 
+        _pointMoving = new PointMoving(_navigationMover);
+        _randomMoving = new RandomMoving(_navigationMover, _patrolRadius, _timeToChangeLocation, transform);
+        ChangeState(_pointMoving);
+        
         _navigationMover.SetIsMoving(false);
 
         _inputController.LeftMouseClicked += OnLeftMouseClicked;
-        _health.HealthChanged += OnHealthChanged;
+        _health.HealthChanged += OnHealthChanged;        
     }
 
     public void TakeDamage(float damage)
@@ -107,41 +113,16 @@ public class PlayerController : MonoBehaviour, IInitable
         if (isDead)
             return;
 
-        if (_chaousCoroutine != null)
-        {
-            StopCoroutine(_chaousCoroutine);
-            _chaousCoroutine = null;
-        }
+        ChangeState(_pointMoving);
+        _currentMoving.SetPoint(vector);
 
         _currentTime = 0;
-        StartMoveTo(vector);
     }
 
-    private void StartMoveTo(Vector3 vector)
+    private void ChangeState(IState newState)
     {
-        _previousState = true;
-        _navigationMover.SetIsMoving(true);
-        _navigationMover.SetPoint(vector);
-    }
-
-    private IEnumerator ChaousMove()
-    {
-        print("Player bored");
-
-        while (true)
-        {
-            yield return null;
-
-            StartMoveTo(transform.position + GetRandomVectorInRaduis(_patrolRadius));
-            yield return new WaitForSeconds(_timeToChangeLocation);
-        }
-    }
-
-    private Vector3 GetRandomVectorInRaduis(float raduis)
-    {
-        float x = UnityEngine.Random.Range(-raduis, raduis);
-        float z = UnityEngine.Random.Range(-raduis, raduis);
-
-        return new Vector3(x, 0, z);
+        _currentMoving?.Exit();
+        _currentMoving = newState;
+        _currentMoving.Enter();
     }
 }
