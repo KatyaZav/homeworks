@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NavigationMover
 {
+    public event Action<Vector3> PointChanged;
+    public event Action<bool> MovingChanged;
+
     private NavMeshAgent _navMeshAgent;
 
     public NavigationMover(NavMeshAgent navMeshAgent)
@@ -15,11 +19,13 @@ public class NavigationMover
 
     public void SetPoint(Vector3 point)
     {
+        PointChanged?.Invoke(point);
         _navMeshAgent.SetDestination(point);
     }
 
     public void SetIsMoving(bool isMoving)
     {
+        MovingChanged?.Invoke(isMoving);
         _navMeshAgent.isStopped = isMoving == false;
     }
 }

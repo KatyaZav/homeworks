@@ -1,36 +1,39 @@
+using System;
 using UnityEngine;
 
-public class PointZone : MonoBehaviour, IInitable
+public class PointZone : MonoBehaviour
 {
     [SerializeField] private InputController _inputController;
     [SerializeField] private GameObject _pointView;
     [SerializeField] private PlayerController _player;
 
+    private NavigationMover _navigationMover;
+
     private void OnDestroy()
-    {
-        _inputController.LeftMouseClicked -= SetPoint;        
-        _player.Stoped -= DisactivatePoint;
+    {       
+        _navigationMover.MovingChanged -= OnIsMoving;
+        _navigationMover.PointChanged -= OnChangePoint;
     }
 
-    public void Init()
+    public void Init(NavigationMover mover)
     {
-        _inputController.LeftMouseClicked += SetPoint;
-        _player.Stoped += DisactivatePoint;
+        _navigationMover = mover;
 
         _pointView.SetActive(false);
+
+        _navigationMover.MovingChanged += OnIsMoving;
+        _navigationMover.PointChanged += OnChangePoint;
+
     }
 
-    private void SetPoint(Vector3 vector)
+    private void OnChangePoint(Vector3 vector)
     {
         _pointView.SetActive(true);
         transform.position = vector;
     }
 
-    private void DisactivatePoint(bool isStoped)
+    private void OnIsMoving(bool isMoving)
     {
-        if (isStoped)
-        {
-            _pointView.SetActive(false);
-        }
+        _pointView.SetActive(isMoving);
     }
 }

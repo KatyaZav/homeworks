@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IInitable
     [SerializeField] private InputController _inputController;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private Animator _animator;
+    [SerializeField] private PointZone _pointZone;
 
     [Header("Settings")]
     [SerializeField] private float _maxHealth;
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour, IInitable
         ChangeState(_pointMoving);
         
         _navigationMover.SetIsMoving(false);
+        _pointZone.Init(_navigationMover);
 
         _inputController.LeftMouseClicked += OnLeftMouseClicked;
         _health.HealthChanged += OnHealthChanged;        

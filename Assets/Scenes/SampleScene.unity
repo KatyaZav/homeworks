@@ -548,6 +548,7 @@ MonoBehaviour:
   _inputController: {fileID: 1221993026}
   _navMeshAgent: {fileID: 383575847}
   _animator: {fileID: 383575845}
+  _pointZone: {fileID: 1643190362}
   _maxHealth: 10
   _waitTime: 3
   _patrolRadius: 6
@@ -1763,7 +1764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scripts:
   - {fileID: 383575848}
-  - {fileID: 1643190362}
   - {fileID: 1221993026}
 --- !u!4 &937474761
 Transform:
