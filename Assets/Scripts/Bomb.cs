@@ -65,12 +65,12 @@ public class Bomb : MonoBehaviour
         _audioComponent.Stop();
         _audioComponent.MakeNewSound(_destroyClip);
 
-        var colliders = GetDamagebleItemsInZone();
-        if (colliders.Count > 0)
+        List<IDamagable> damagebleItems = GetDamagebleItemsInZone();
+        if (damagebleItems.Count > 0)
         {
-            foreach (var collider in colliders)
+            foreach (IDamagable item in damagebleItems)
             {
-                collider.TakeDamage(_damage);
+                item.TakeDamage(_damage);
             }
         }
 

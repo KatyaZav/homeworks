@@ -36,6 +36,22 @@ public class PlayerController : MonoBehaviour, IInitable, IDamagable
     public float MaxHealth => _maxHealth;
     public bool IsGoing => _navigationMover.isGoing;
 
+    public void Init()
+    {
+        _navigationMover = new NavigationMover(_navMeshAgent);
+        _health = new Health(_maxHealth);
+
+        _pointMoving = new PointMoving(_navigationMover);
+        _randomMoving = new RandomMoving(_navigationMover, _patrolRadius, _timeToChangeLocation, transform);
+        ChangeState(_pointMoving);
+
+        _navigationMover.SetIsMoving(false);
+        _pointZone.Init(_navigationMover);
+
+        _inputController.LeftMouseClicked += OnLeftMouseClicked;
+        _health.HealthChanged += OnHealthChanged;
+    }
+
     private void Update()
     {
         if (isDead)
@@ -65,22 +81,6 @@ public class PlayerController : MonoBehaviour, IInitable, IDamagable
     {
         _inputController.LeftMouseClicked -= OnLeftMouseClicked;
         _health.HealthChanged -= OnHealthChanged;        
-    }
-
-    public void Init()
-    {
-        _navigationMover = new NavigationMover(_navMeshAgent);
-        _health = new Health(_maxHealth);
-
-        _pointMoving = new PointMoving(_navigationMover);
-        _randomMoving = new RandomMoving(_navigationMover, _patrolRadius, _timeToChangeLocation, transform);
-        ChangeState(_pointMoving);
-        
-        _navigationMover.SetIsMoving(false);
-        _pointZone.Init(_navigationMover);
-
-        _inputController.LeftMouseClicked += OnLeftMouseClicked;
-        _health.HealthChanged += OnHealthChanged;        
     }
 
     public void TakeDamage(float damage)
