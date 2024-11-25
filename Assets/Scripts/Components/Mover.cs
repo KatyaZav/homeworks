@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class Mover
 {
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody _rigidbody;
+    
+    private float _speed;
+
+    public Mover(Rigidbody rigidbody, float speed)
     {
-        
+        _rigidbody = rigidbody;
+        _speed = speed;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveToDirection(Vector3 direction)
     {
-        
+        _rigidbody.velocity = direction.normalized * _speed;
     }
 }
