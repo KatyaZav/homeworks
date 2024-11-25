@@ -1,18 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _waitTime;
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private float _changeDirectionTime;
+    [SerializeField] private float _enemySpeed;
+    [SerializeField] private float _health;
+
+    public void Init()
     {
-        
+        StartCoroutine(SpawnLogic());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator SpawnLogic()
     {
+        while (true)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(_waitTime);
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        Enemy enemy = Instantiate(_enemy, transform.position, transform.rotation);
+
+        Mover mover = new Mover(enemy.GetRigidbody(), _enemySpeed);
+        Health health = new Health(_health);
         
+        enemy.Init(_changeDirectionTime, mover, health);
     }
 }
