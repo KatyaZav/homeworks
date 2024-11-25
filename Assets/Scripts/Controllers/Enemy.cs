@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageble
 {
     private const float MinVectorValue = -1f; 
     private const float MaxVectorValue = 1f;
@@ -11,11 +11,13 @@ public class Enemy : MonoBehaviour
     private float _changeDirectionTime;
     
     private Mover _mover;
+    private Health _health;
 
     private bool _wasInit;
     private float _currentTime;
 
-    public void Init(float changeDirectionTime, Mover mover)
+
+    public void Init(float changeDirectionTime, Mover mover, Health health)
     {
         _currentTime = changeDirectionTime;
 
@@ -23,9 +25,11 @@ public class Enemy : MonoBehaviour
         _changeDirectionTime = changeDirectionTime;
         _wasInit = true;
 
+        _health = health;
     }
 
-    // Update is called once per frame
+    public float Health => _health.CurrentHealth;
+
     void Update()
     {
         if (_wasInit == false)
@@ -41,6 +45,16 @@ public class Enemy : MonoBehaviour
     }
 
     public Rigidbody GetRigidbody() => GetComponent<Rigidbody>();
+    
+    public void Add(float health)
+    {
+        _health.Add(health);
+    }
+
+    public void Remove(float damage)
+    {
+        _health.Remove(damage);
+    }
 
     private void ChangeDirection()
     {
@@ -55,4 +69,5 @@ public class Enemy : MonoBehaviour
 
         return new Vector3 (x, 0, z);
     }
+
 }

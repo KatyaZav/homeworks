@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]  
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageble
 {
     private Rigidbody _rigidbody;
     
@@ -11,16 +11,18 @@ public class PlayerController : MonoBehaviour
     private Mover _mover;
     private Rotator _rotator;
     private Shooter _shooter;
+    private Health _health;
 
     private bool _wasInit;
     private float _horizontalMove, _vercicalMove;
 
-    public void Init(InputHandler input, Mover mover, Rotator rotator, Shooter shooter)
+    public void Init(InputHandler input, Mover mover, Rotator rotator, Shooter shooter, Health health)
     {
         _inputHandler = input;
         _mover = mover;
         _rotator = rotator;
         _shooter = shooter;
+        _health = health;
 
         _rigidbody = GetComponent<Rigidbody>();
         _wasInit = true;
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
     
     [field: SerializeField] public Transform ShootPosition { get; private set; }
     public Rigidbody Rigidbody => _rigidbody? _rigidbody : GetComponent<Rigidbody>();
+
+    public float Health => _health.CurrentHealth;
 
     private void Update()
     {
@@ -46,5 +50,15 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(_horizontalMove, 0, _vercicalMove);
         _mover.MoveToDirection(direction);
         _rotator.RotateTo(direction);        
+    }
+
+    public void Add(float health)
+    {
+        _health.Add(health);
+    }
+
+    public void Remove(float damage)
+    {
+        _health.Remove(damage);    
     }
 }
