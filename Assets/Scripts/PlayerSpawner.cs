@@ -8,11 +8,17 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] private PlayerController _playerPrefab;
     [SerializeField] private float _speed, _rotationSpeed;
 
+    [SerializeField] private Bullet _bullet;
+    [SerializeField] private float _bulletSpeed;
+
     private void Start()
     {
         PlayerController player = Instantiate(_playerPrefab, transform.position, transform.rotation);
+        
         Mover mover = new Mover(player.Rigidbody, _speed);
         Rotator rotator = new Rotator(player.gameObject.transform, _rotationSpeed);
-        player.Init(_inputHandler, mover, rotator);
+        Shooter shooter = new Shooter(_bullet, _bulletSpeed, player.ShootPosition);
+
+        player.Init(_inputHandler, mover, rotator, shooter);
     }
 }

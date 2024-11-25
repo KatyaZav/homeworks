@@ -915,6 +915,8 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1280637617351402072, guid: 020755c9b0a29cf438a4807e00015a6b, type: 3}
   _speed: 20
   _rotationSpeed: 5
+  _bullet: {fileID: -2811647568843966353, guid: 83f78fbf04d0db645904c327d5b848d2, type: 3}
+  _bulletSpeed: 40
 --- !u!4 &2015821307
 Transform:
   m_ObjectHideFlags: 0

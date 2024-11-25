@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class Shooter
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float _bulletSpeed;
+    private Bullet _bullet;
+    private Transform _shootPoint;
         
+    public Shooter(Bullet bullet, float speed, Transform shootPoint)
+    {
+        _bullet = bullet;
+        _bulletSpeed = speed;
+        _shootPoint = shootPoint;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Shoot()
     {
-        
+        Bullet bullet = GameObject.Instantiate(_bullet, _shootPoint.position, _shootPoint.rotation);
+        bullet.Launch(_bulletSpeed);
     }
 }
