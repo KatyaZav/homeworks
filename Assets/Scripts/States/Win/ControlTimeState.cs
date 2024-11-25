@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlTimeState : MonoBehaviour
+public class ControlTimeState : IState
 {
-    // Start is called before the first frame update
-    void Start()
+    public ControlTimeState()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public event Action Completed;
+
+    public void Enter()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public void Exit()
+    {
+        throw new System.NotImplementedException();
     }
 }
