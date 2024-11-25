@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ControlPlayerState : IState
 {
+    public event Action Completed;
+    
     private PlayerController _player;
 
     public ControlPlayerState(PlayerController player)
@@ -12,15 +14,21 @@ public class ControlPlayerState : IState
         _player = player;
     }
 
-    public event Action Completed;
-
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        _player.Health.Changed += OnHealthChanged;
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        _player.Health.Changed -= OnHealthChanged;
+    }
+
+    private void OnHealthChanged(float hp)
+    {
+        if (hp == 0)
+        {
+            Completed?.Invoke();
+        }
     }
 }

@@ -13,7 +13,7 @@ public class ControlTimeState : IState
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void Exit()

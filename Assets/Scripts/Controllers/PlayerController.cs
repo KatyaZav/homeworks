@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]  
@@ -27,11 +28,11 @@ public class PlayerController : MonoBehaviour, IDamageble
         _rigidbody = GetComponent<Rigidbody>();
         _wasInit = true;
     }
-    
+
     [field: SerializeField] public Transform ShootPosition { get; private set; }
     public Rigidbody Rigidbody => _rigidbody? _rigidbody : GetComponent<Rigidbody>();
 
-    public float Health => _health.CurrentHealth;
+    public Stat<float> Health => _health.CurrentHealth;
 
     private void Update()
     {

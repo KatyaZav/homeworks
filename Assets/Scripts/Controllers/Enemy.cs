@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour, IDamageble
         _mask = mask;
     }
 
-    public float Health => _health.CurrentHealth;
+    public Stat<float> Health => _health.CurrentHealth;
 
     void Update()
     {

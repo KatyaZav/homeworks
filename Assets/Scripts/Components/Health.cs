@@ -3,25 +3,26 @@ using UnityEngine;
 public class Health
 {
     private const int MinValue = 0;
-    private float _currentHealth, _maxHealth;
+
+    private float _maxHealth;
 
     public Health(float maxHealth)
     {
-        _currentHealth = maxHealth;
+        CurrentHealth = new Stat<float>(maxHealth);
         _maxHealth = maxHealth;
     }
 
-    public float CurrentHealth => _currentHealth;
+    public Stat<float> CurrentHealth { get; private set; }
 
     public void Add(float health)
     {
-        float temp = _currentHealth + health;
-        _currentHealth = Mathf.Min(temp, _maxHealth);
+        float temp = CurrentHealth.Value + health;
+        CurrentHealth.Value = Mathf.Min(temp, _maxHealth);
     } 
 
     public void Remove(float damage)
     {
-        float temp = _currentHealth - damage;
-        _currentHealth = Mathf.Max(temp, MinValue);
+        float temp = CurrentHealth.Value - damage;
+        CurrentHealth.Value = Mathf.Max(temp, MinValue);
     }
 }

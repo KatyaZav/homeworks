@@ -1,8 +1,8 @@
 using System;
-
+using UnityEngine;
 public class Stat<T> where T : IComparable
 {
-    public event Action Changed;
+    public event Action<T> Changed;
 
     private T _value;
 
@@ -13,7 +13,7 @@ public class Stat<T> where T : IComparable
 
     public T Value
     {
-        get => Value;
+        get => _value;
         set
         {
             T oldValue = _value; 
@@ -21,7 +21,10 @@ public class Stat<T> where T : IComparable
             _value = value;
 
             if (_value.CompareTo(oldValue) != 0)
-                Changed?.Invoke();
+            {
+                Debug.Log("Changed to " + _value);
+                Changed?.Invoke(_value);
+            }
         }
     }
 }

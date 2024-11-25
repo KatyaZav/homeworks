@@ -21,18 +21,21 @@ public class GameSettings : MonoBehaviour
 
     private void OnDisable()
     {
+        _winSetting.Exit();
+        _looseSetting.Exit();
+
         _winSetting.Completed -= OnWin;
         _looseSetting.Completed -= OnLose;
     }
 
     private void OnLose()
     {
-        throw new NotImplementedException();
+        Debug.Log("Lose");
     }
 
     private void OnWin()
     {
-        throw new NotImplementedException();
+        Debug.Log("Win");
     }
 
     private void ChooseLoseSettings()
@@ -46,6 +49,8 @@ public class GameSettings : MonoBehaviour
                 _looseSetting = new ControlPlayerState(_playerSpawner.Player);
                 break;
         }
+
+        _looseSetting.Enter();
     }
 
     private void ChooseWinSettings()
@@ -59,6 +64,8 @@ public class GameSettings : MonoBehaviour
                 _winSetting = new ControlTimeState();
                 break;
         }
+
+        _winSetting.Enter();
     }
 }
 
