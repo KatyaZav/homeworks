@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Shooter _shooter;
 
     private bool _wasInit;
+    private float _horizontalMove, _vercicalMove;
 
     public void Init(InputHandler input, Mover mover, Rotator rotator, Shooter shooter)
     {
@@ -24,7 +25,6 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _wasInit = true;
     }
-
     
     [field: SerializeField] public Transform ShootPosition { get; private set; }
     public Rigidbody Rigidbody => _rigidbody? _rigidbody : GetComponent<Rigidbody>();
@@ -34,14 +34,17 @@ public class PlayerController : MonoBehaviour
         if (_wasInit == false)
             return;
 
-        float horizontalMove = _inputHandler.GetHorizontalInput();
-        float vercicalMove = _inputHandler.GetVerticalInput();
-
-        Vector3 direction = new Vector3(horizontalMove, 0, vercicalMove);
-        _mover.MoveToDirection(direction);
-        _rotator.RotateTo(direction);
-
         if (_inputHandler.GetShootKeyDown())
             _shooter.Shoot();
+        
+        _horizontalMove = _inputHandler.GetHorizontalInput();
+        _vercicalMove = _inputHandler.GetVerticalInput();
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 direction = new Vector3(_horizontalMove, 0, _vercicalMove);
+        _mover.MoveToDirection(direction);
+        _rotator.RotateTo(direction);        
     }
 }
