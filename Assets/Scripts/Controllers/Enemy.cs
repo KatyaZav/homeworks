@@ -16,8 +16,10 @@ public class Enemy : MonoBehaviour, IDamageble
     private bool _wasInit;
     private float _currentTime;
 
+    private LayerMask _mask;
+    private float _damage;
 
-    public void Init(float changeDirectionTime, Mover mover, Health health)
+    public void Init(float changeDirectionTime, Mover mover, Health health, LayerMask mask, float damage)
     {
         _currentTime = changeDirectionTime;
 
@@ -26,6 +28,8 @@ public class Enemy : MonoBehaviour, IDamageble
         _wasInit = true;
 
         _health = health;
+        _damage = damage;
+        _mask = mask;
     }
 
     public float Health => _health.CurrentHealth;
@@ -41,6 +45,18 @@ public class Enemy : MonoBehaviour, IDamageble
         {
             _currentTime = 0;
             ChangeDirection();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((_mask & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
+        {
+            IDamageble enemy = collision.gameObject.GetComponent<IDamageble>();
+            if (enemy != null)
+            {
+                enemy.Remove(_damage);
+            }
         }
     }
 

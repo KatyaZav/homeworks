@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == _mask.value)
+        if ((_mask & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
             IDamageble enemy = collision.gameObject.GetComponent<IDamageble>();
             if (enemy != null)

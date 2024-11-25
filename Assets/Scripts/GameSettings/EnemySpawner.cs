@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _changeDirectionTime;
     [SerializeField] private float _enemySpeed;
     [SerializeField] private float _health;
+    [SerializeField] private float _damage;
+    [SerializeField] private LayerMask _layerMask;
 
     public void Init()
     {
@@ -30,6 +32,6 @@ public class EnemySpawner : MonoBehaviour
         Mover mover = new Mover(enemy.GetRigidbody(), _enemySpeed);
         Health health = new Health(_health);
         
-        enemy.Init(_changeDirectionTime, mover, health);
+        enemy.Init(_changeDirectionTime, mover, health, _layerMask, _damage);
     }
 }
