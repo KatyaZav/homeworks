@@ -14,6 +14,7 @@ public class Mover
 
     public void MoveToDirection(Vector3 direction)
     {
+        direction.y = _rigidbody.velocity.y;
         _rigidbody.velocity = direction.normalized * _speed;
     }
 }

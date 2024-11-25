@@ -913,7 +913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 1845392419}
   _playerPrefab: {fileID: 1280637617351402072, guid: 020755c9b0a29cf438a4807e00015a6b, type: 3}
-  _speed: 5
+  _speed: 20
+  _rotationSpeed: 5
 --- !u!4 &2015821307
 Transform:
   m_ObjectHideFlags: 0
