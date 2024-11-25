@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private PlayerSpawner _spawner;
     [SerializeField] private EnemySpawner[] _enemySpawners;
+    [SerializeField] private GameSettings _gameSettings;
 
     void Start()
     {
@@ -15,5 +14,7 @@ public class Bootstrap : MonoBehaviour
         {
             spawner.Init();
         }
+
+        _gameSettings.Init();
     }
 }

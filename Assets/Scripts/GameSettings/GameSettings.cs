@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class GameSettings : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private WinningSettings _winningSettings;
+    [SerializeField] private LosingSettings _lingSettings;
 
-    // Update is called once per frame
-    void Update()
+    public void Init()
     {
-        
+
     }
+}
+
+public enum WinningSettings
+{
+    waiting,
+    killing
+}
+
+public enum LosingSettings
+{
+    killed,
+    overspawned
 }
