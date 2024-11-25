@@ -11,7 +11,7 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] private Bullet _bullet;
     [SerializeField] private float _bulletSpeed;
 
-    private void Start()
+    public void Init()
     {
         PlayerController player = Instantiate(_playerPrefab, transform.position, transform.rotation);
         

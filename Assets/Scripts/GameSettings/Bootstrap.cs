@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private PlayerSpawner _spawner;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _spawner.Init();
     }
 }
