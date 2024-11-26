@@ -5,19 +5,39 @@ using UnityEngine;
 
 public class ControlTimeState : IState
 {
-    public ControlTimeState()
+    private MonoBehaviour _baseMonobehaviour;
+    private float _time;
+
+    private Coroutine _coroutine;
+
+    public ControlTimeState(MonoBehaviour baseObj, float time)
     {
+        _baseMonobehaviour = baseObj;
+        _time = time;
     }
 
     public event Action Completed;
 
     public void Enter()
     {
-        //throw new System.NotImplementedException();
+        _coroutine = _baseMonobehaviour.StartCoroutine(Timer());
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        _baseMonobehaviour.StopCoroutine(_coroutine);
+    }
+
+    private IEnumerator Timer()
+    {
+        float currentTime = _time;
+
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        Completed?.Invoke();
     }
 }
