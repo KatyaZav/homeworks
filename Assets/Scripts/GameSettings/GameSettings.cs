@@ -5,6 +5,7 @@ public class GameSettings : MonoBehaviour
 {
     private const float WinTime = 10;
     private const int WinEnemyCount = 10;
+    private const int LoseEnemyCount = 10;
 
     [SerializeField] private WinningSettings _winningSettings;
     [SerializeField] private LosingSettings _losingSettings;
@@ -46,7 +47,7 @@ public class GameSettings : MonoBehaviour
         switch (_losingSettings)
         {
             case LosingSettings.overspawned:
-                _looseSetting = new ControlEnemyState();
+                _looseSetting = new ControlEnemyState(LoseEnemyCount);
                 break;
             case LosingSettings.killed:
                 _looseSetting = new ControlPlayerState(_playerSpawner.Player);

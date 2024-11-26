@@ -6,6 +6,7 @@ using UnityEngine;
 public class ControllKillingState : IState
 {
     private int _count, _needCount;
+    private bool _isComplete;
 
     public ControllKillingState(int needCount)
     {
@@ -17,6 +18,8 @@ public class ControllKillingState : IState
     public void Enter()
     {
         _count = 0;
+        _isComplete = false;
+
         EnemySpawner.ListEnemy.Removed += OnRemove;
     }
 
@@ -27,11 +30,15 @@ public class ControllKillingState : IState
 
     private void OnRemove(List<Enemy> list)
     {
+        if (_isComplete)
+            return;
+
         _count++;
 
         if (_count == _needCount)
         {
             Completed?.Invoke();
+            _isComplete = true;
         }
     }
 }
