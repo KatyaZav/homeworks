@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _winningSettings: 1
-  _losingSettings: 1
+  _losingSettings: 0
   _playerSpawner: {fileID: 2015821306}
 --- !u!4 &2140845162
 Transform:
