@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -11,8 +12,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private LayerMask _layerMask;
 
+    public ListStat<Enemy> ListEnemy {  get; private set; }
+
     public void Init()
     {
+        ListEnemy = new ListStat<Enemy>(new List<Enemy>());
+
         StartCoroutine(SpawnLogic());
     }
 
@@ -33,5 +38,15 @@ public class EnemySpawner : MonoBehaviour
         Health health = new Health(_health);
         
         enemy.Init(_changeDirectionTime, mover, health, _layerMask, _damage);
+
+        ListEnemy.Add(enemy);
+        enemy.Died += OnEnemyDied;
+    }
+
+    private void OnEnemyDied(Enemy enemy)
+    {
+        enemy.Died -= OnEnemyDied;
+
+        ListEnemy.Remove(enemy);
     }
 }

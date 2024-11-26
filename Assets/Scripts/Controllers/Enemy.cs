@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -5,6 +6,8 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageble
 {
+    public event Action<Enemy> Died;
+
     private const float MinVectorValue = -1f; 
     private const float MaxVectorValue = 1f;
 
@@ -70,6 +73,9 @@ public class Enemy : MonoBehaviour, IDamageble
     public void Remove(float damage)
     {
         _health.Remove(damage);
+
+        if (_health.CurrentHealth.Value <= 0)
+            OnDied();
     }
 
     private void ChangeDirection()
@@ -86,4 +92,9 @@ public class Enemy : MonoBehaviour, IDamageble
         return new Vector3 (x, 0, z);
     }
 
+    private void OnDied()
+    {
+        Died?.Invoke(this);
+        Destroy(gameObject);
+    }
 }

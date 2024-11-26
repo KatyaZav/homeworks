@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameSettings : MonoBehaviour
 {
+    private const float WinTime = 10;
+
     [SerializeField] private WinningSettings _winningSettings;
     [SerializeField] private LosingSettings _losingSettings;
 
@@ -61,7 +63,7 @@ public class GameSettings : MonoBehaviour
                 _winSetting = new ControllKillingState();
                 break;
             case WinningSettings.waiting:
-                _winSetting = new ControlTimeState(this, 10, _playerSpawner.Player);
+                _winSetting = new ControlTimeState(this, WinTime, _playerSpawner.Player);
                 break;
         }
 

@@ -22,7 +22,6 @@ public class Stat<T> where T : IComparable
 
             if (_value.CompareTo(oldValue) != 0)
             {
-                Debug.Log("Changed to " + _value);
                 Changed?.Invoke(_value);
             }
         }
