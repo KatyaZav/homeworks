@@ -2,23 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner
 {
-    [SerializeField] private float _waitTime;
-    [SerializeField] private Enemy _enemy;
-    [SerializeField] private float _changeDirectionTime;
-    [SerializeField] private float _enemySpeed;
-    [SerializeField] private float _health;
-    [SerializeField] private float _damage;
-    [SerializeField] private LayerMask _layerMask;
-
+    private Transform _spawnPoint;
+    private float _waitTime;
+    
+    private Enemy _enemy;
+    private float _changeDirectionTime;
+    private float _enemySpeed;
+    private float _health;
+    private float _damage;
+    private LayerMask _layerMask;
+    private MonoBehaviour _root;
     public static ListStat<Enemy> ListEnemy {  get; private set; }
 
-    public void Init()
+    public EnemySpawner(EnemyConfig enemyConfig, Transform spawnPoint, float waitTime, MonoBehaviour root)
+    {
+        _waitTime = waitTime;
+        _spawnPoint = spawnPoint;
+        _root = root;
+
+        _enemy = enemyConfig.EnemyPrefab;
+        _changeDirectionTime = enemyConfig.ChangeDirectionTime;
+        _enemySpeed = enemyConfig.Speed;
+        _health = enemyConfig.Health;
+        _damage = enemyConfig.Damage;
+        _layerMask = enemyConfig.EnemyMask;
+    }
+
+    public void StartSpawning()
     {
         ListEnemy ??= new ListStat<Enemy>(new List<Enemy>());
 
-        StartCoroutine(SpawnLogic());
+        _root.StartCoroutine(SpawnLogic());
     }
 
     private IEnumerator SpawnLogic()
@@ -32,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Enemy enemy = Instantiate(_enemy, transform.position, transform.rotation);
+        Enemy enemy = GameObject.Instantiate(_enemy, _spawnPoint.position, _spawnPoint.rotation);
 
         Mover mover = new Mover(enemy.GetRigidbody(), _enemySpeed);
         Health health = new Health(_health);

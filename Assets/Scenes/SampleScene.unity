@@ -554,7 +554,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1230990335}
-  - component: {fileID: 1230990336}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -577,27 +576,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1725072840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1230990336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1230990334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689b4ca77a1a11448ad4bbedea037015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _waitTime: 5
-  _enemy: {fileID: 1336449474473588894, guid: 129684cbbfd1a2b489b97f6b2aea9503, type: 3}
-  _changeDirectionTime: 4
-  _enemySpeed: 20
-  _health: 2
-  _damage: 2
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &1255678193
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +963,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1884541927}
-  - component: {fileID: 1884541928}
   m_Layer: 0
   m_Name: EnemySpawner (1)
   m_TagString: Untagged
@@ -1008,27 +985,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1725072840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1884541928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884541926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689b4ca77a1a11448ad4bbedea037015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _waitTime: 5
-  _enemy: {fileID: 1336449474473588894, guid: 129684cbbfd1a2b489b97f6b2aea9503, type: 3}
-  _changeDirectionTime: 4
-  _enemySpeed: 20
-  _health: 2
-  _damage: 2
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &2015821305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,13 +1046,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpawnPoint: {fileID: 2015821307}
-  _enemySpawners:
-  - {fileID: 1230990336}
-  - {fileID: 1884541928}
+  _enemySpawnPoins:
+  - {fileID: 1230990335}
+  - {fileID: 1884541927}
   _gameSettings: {fileID: 2140845161}
   _bulletConfig: {fileID: 11400000, guid: 5d0be7a55b79eb840828e92d9e2a29e5, type: 2}
   _enemyConfig: {fileID: 11400000, guid: 490255f5def77b347814b827e1554d2d, type: 2}
   _playerConfig: {fileID: 11400000, guid: 7547b09021b05e643adf2c3ae03ac2e4, type: 2}
+  _waitTime: 4
 --- !u!4 &2104645829
 Transform:
   m_ObjectHideFlags: 0

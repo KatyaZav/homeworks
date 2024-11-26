@@ -3,12 +3,14 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private Transform _playerSpawnPoint;
-    [SerializeField] private EnemySpawner[] _enemySpawners;
+    [SerializeField] private Transform[] _enemySpawnPoins;
     [SerializeField] private GameSettings _gameSettings;
 
     [SerializeField] private BulletConfig _bulletConfig;
     [SerializeField] private EnemyConfig _enemyConfig;
     [SerializeField] private PlayerConfig _playerConfig;
+
+    [SerializeField] private float _waitTime;
 
     void Start()
     {
@@ -17,9 +19,10 @@ public class Bootstrap : MonoBehaviour
 
         spawner.Spawn();
 
-        foreach (var enemySpawner in _enemySpawners)
+        foreach (var enemySpawnPoint in _enemySpawnPoins)
         {
-            enemySpawner.Init();
+            EnemySpawner eSpawner = new EnemySpawner(_enemyConfig, enemySpawnPoint, _waitTime, this);
+            eSpawner.StartSpawning();
         }
 
         _gameSettings.Init();
