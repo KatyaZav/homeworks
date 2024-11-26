@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class InputHandler
 {
     public float GetHorizontalInput() => Input.GetAxisRaw("Horizontal");
     public float GetVerticalInput() => Input.GetAxisRaw("Vertical");
