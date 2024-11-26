@@ -1,32 +1,27 @@
-using System;
 using UnityEngine;
 
-public class GameSettings : MonoBehaviour
+public class GameSettings
 {
-    private const float WinTime = 10;
-    private const int WinEnemyCount = 10;
-    private const int LoseEnemyCount = 10;
+    private PlayerSpawner _playerSpawner;
 
-    [SerializeField] private WinningSettings _winningSettings;
-    [SerializeField] private LosingSettings _losingSettings;
+    private IConditions _winSetting, _looseSetting;
 
-    [SerializeField] private PlayerSpawner _playerSpawner;
-
-    private IState _winSetting, _looseSetting;
-
-    public void Init()
+    public GameSettings(IConditions winningSettings, IConditions losingSettings)
     {
-        ChooseWinSettings();
-        ChooseLoseSettings();
+        _winSetting = winningSettings;
+        _looseSetting = losingSettings;
+
+        _winSetting.Enable();
+        _looseSetting.Enable();
 
         _winSetting.Completed += OnWin;
         _looseSetting.Completed += OnLose;
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
-        _winSetting.Exit();
-        _looseSetting.Exit();
+        _winSetting.Disable();
+        _looseSetting.Disable();
 
         _winSetting.Completed -= OnWin;
         _looseSetting.Completed -= OnLose;
@@ -40,36 +35,6 @@ public class GameSettings : MonoBehaviour
     private void OnWin()
     {
         Debug.Log("Win");
-    }
-
-    private void ChooseLoseSettings()
-    {
-        switch (_losingSettings)
-        {
-            case LosingSettings.overspawned:
-                _looseSetting = new ControlEnemyState(LoseEnemyCount);
-                break;
-            case LosingSettings.killed:
-                _looseSetting = new ControlPlayerState(_playerSpawner.Player);
-                break;
-        }
-
-        _looseSetting.Enter();
-    }
-
-    private void ChooseWinSettings()
-    {
-        switch (_winningSettings)
-        {
-            case WinningSettings.killing:
-                _winSetting = new ControllKillingState(WinEnemyCount);
-                break;
-            case WinningSettings.waiting:
-                _winSetting = new ControlTimeState(this, WinTime, _playerSpawner.Player);
-                break;
-        }
-
-        _winSetting.Enter();
     }
 }
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class ControlTimeState : IState
+public class ControlTimeState : IConditions
 {
     private MonoBehaviour _baseMonobehaviour;
     private PlayerController _player;
@@ -19,14 +19,14 @@ public class ControlTimeState : IState
 
     public event Action Completed;
 
-    public void Enter()
+    public void Enable()
     {
         _coroutine = _baseMonobehaviour.StartCoroutine(Timer());
         
         _player.Health.Changed += OnHealthChange;
     }
 
-    public void Exit()
+    public void Disable()
     {
         _baseMonobehaviour.StopCoroutine(_coroutine);
 

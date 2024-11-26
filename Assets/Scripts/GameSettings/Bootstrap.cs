@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
+    private const float WinTime = 10;
+    private const int WinEnemyCount = 10;
+    private const int LoseEnemyCount = 10;
+
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private Transform[] _enemySpawnPoins;
     [SerializeField] private GameSettings _gameSettings;
@@ -11,6 +15,11 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private PlayerConfig _playerConfig;
 
     [SerializeField] private float _waitTime;
+
+    [SerializeField] private WinningSettings _winningSettings;
+    [SerializeField] private LosingSettings _losingSettings;
+
+    private GameSettings _settings;
 
     void Start()
     {
@@ -25,6 +34,40 @@ public class Bootstrap : MonoBehaviour
             eSpawner.StartSpawning();
         }
 
-        _gameSettings.Init();
+        IConditions win = ChooseWinSettings(spawner);
+        IConditions loose = ChooseLoseSettings(spawner);
+
+        _settings = new GameSettings(win, loose);
+    }
+
+    private void OnDisable()
+    {
+        _settings.OnDisable();
+    }
+
+    private IConditions ChooseWinSettings(PlayerSpawner playerSpawner)
+    {
+        switch (_winningSettings)
+        {
+            case WinningSettings.killing:
+                return new ControllKillingState(WinEnemyCount);
+            case WinningSettings.waiting:
+                return new ControlTimeState(this, WinTime, playerSpawner.Player);
+        }
+    
+        return new ControlTimeState(this, WinTime, playerSpawner.Player);
+    }
+
+    private IConditions ChooseLoseSettings(PlayerSpawner playerSpawner)
+    {
+        switch (_losingSettings)
+        {
+            case LosingSettings.overspawned:
+                return new ControlEnemyState(LoseEnemyCount);
+            case LosingSettings.killed:
+                return new ControlPlayerState(playerSpawner.Player);
+        }
+        
+        return new ControlPlayerState(playerSpawner.Player);
     }
 }

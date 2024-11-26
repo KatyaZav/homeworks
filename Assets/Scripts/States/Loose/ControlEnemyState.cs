@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ControlEnemyState : IState
+public class ControlEnemyState : IConditions
 {
     private int _needCount;
 
@@ -15,12 +15,12 @@ public class ControlEnemyState : IState
 
     public event Action Completed;
 
-    public void Enter()
+    public void Enable()
     {
         EnemySpawner.ListEnemy.Added += OnAdd;
     }
 
-    public void Exit()
+    public void Disable()
     {
         EnemySpawner.ListEnemy.Added -= OnAdd;
     }

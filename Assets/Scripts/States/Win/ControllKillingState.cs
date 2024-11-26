@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllKillingState : IState
+public class ControllKillingState : IConditions
 {
     private int _count, _needCount;
     private bool _isComplete;
@@ -15,7 +15,7 @@ public class ControllKillingState : IState
 
     public event Action Completed;
 
-    public void Enter()
+    public void Enable()
     {
         _count = 0;
         _isComplete = false;
@@ -23,7 +23,7 @@ public class ControllKillingState : IState
         EnemySpawner.ListEnemy.Removed += OnRemove;
     }
 
-    public void Exit()
+    public void Disable()
     {
         EnemySpawner.ListEnemy.Removed -= OnRemove;
     }

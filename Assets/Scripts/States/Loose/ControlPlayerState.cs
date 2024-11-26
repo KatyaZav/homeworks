@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlPlayerState : IState
+public class ControlPlayerState : IConditions
 {
     public event Action Completed;
     
@@ -14,12 +14,12 @@ public class ControlPlayerState : IState
         _player = player;
     }
 
-    public void Enter()
+    public void Enable()
     {
         _player.Health.Changed += OnHealthChanged;
     }
 
-    public void Exit()
+    public void Disable()
     {
         _player.Health.Changed -= OnHealthChanged;
     }
