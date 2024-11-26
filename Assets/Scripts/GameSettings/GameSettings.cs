@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameSettings : MonoBehaviour
 {
     private const float WinTime = 10;
+    private const int WinEnemyCount = 10;
 
     [SerializeField] private WinningSettings _winningSettings;
     [SerializeField] private LosingSettings _losingSettings;
@@ -60,7 +61,7 @@ public class GameSettings : MonoBehaviour
         switch (_winningSettings)
         {
             case WinningSettings.killing:
-                _winSetting = new ControllKillingState();
+                _winSetting = new ControllKillingState(WinEnemyCount);
                 break;
             case WinningSettings.waiting:
                 _winSetting = new ControlTimeState(this, WinTime, _playerSpawner.Player);

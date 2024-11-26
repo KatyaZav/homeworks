@@ -12,11 +12,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private LayerMask _layerMask;
 
-    public ListStat<Enemy> ListEnemy {  get; private set; }
+    public static ListStat<Enemy> ListEnemy {  get; private set; }
 
     public void Init()
     {
-        ListEnemy = new ListStat<Enemy>(new List<Enemy>());
+        ListEnemy ??= new ListStat<Enemy>(new List<Enemy>());
 
         StartCoroutine(SpawnLogic());
     }

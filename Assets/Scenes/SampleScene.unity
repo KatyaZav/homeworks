@@ -1106,7 +1106,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1280637617351402072, guid: 020755c9b0a29cf438a4807e00015a6b, type: 3}
   _speed: 20
   _rotationSpeed: 5
-  _health: 2
+  _health: 10
   _bullet: {fileID: -2811647568843966353, guid: 83f78fbf04d0db645904c327d5b848d2, type: 3}
   _enemyMask:
     serializedVersion: 2
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _winningSettings: 1
-  _losingSettings: 1
+  _losingSettings: 0
   _playerSpawner: {fileID: 2015821306}
 --- !u!4 &2140845162
 Transform:
