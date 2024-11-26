@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlTimeState : IState
 {
     private MonoBehaviour _baseMonobehaviour;
+    private PlayerController _player;
     private float _time;
 
     private Coroutine _coroutine;
 
-    public ControlTimeState(MonoBehaviour baseObj, float time)
+    public ControlTimeState(MonoBehaviour baseObj, float time, PlayerController player)
     {
         _baseMonobehaviour = baseObj;
         _time = time;
+        _player = player;
     }
 
     public event Action Completed;
@@ -21,11 +22,24 @@ public class ControlTimeState : IState
     public void Enter()
     {
         _coroutine = _baseMonobehaviour.StartCoroutine(Timer());
+        
+        _player.Health.Changed += OnHealthChange;
     }
 
     public void Exit()
     {
         _baseMonobehaviour.StopCoroutine(_coroutine);
+
+        _player.Health.Changed -= OnHealthChange;
+    }
+   
+    private void OnHealthChange(float health)
+    {
+        if (health <= 0)
+        {
+            Debug.Log("player dead");
+            _baseMonobehaviour.StopCoroutine(_coroutine);
+        }
     }
 
     private IEnumerator Timer()
