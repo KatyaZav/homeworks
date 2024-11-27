@@ -9,13 +9,21 @@ public class Bootstrap : MonoBehaviour
 
     [SerializeField] private ValueUi _valueUiPrefab;
     [SerializeField] private ValueConfig[] _valueConfigs;
+
+    [SerializeField] private TimerManager _timerManager;
         
     void Start()
     {
+        InputHandler input = new InputHandler();
+
+        InitWallet(input);
+        InitTimer(input);
+    }
+
+    private void InitWallet(InputHandler input)
+    {
         var currentWallet = new Wallet(
             new Currency(new Stat<int>(0)), new Currency(new Stat<int>(0)), new Currency(new Stat<int>(0)));
-
-        InputHandler input = new InputHandler();
 
         _walletManager.Init(input, currentWallet);
 
@@ -26,5 +34,11 @@ public class Bootstrap : MonoBehaviour
             valueUi.Init(_walletManager.CurrentWallet.Currencies[index], _valueConfigs[index]);
             index++;
         }
+    }
+    private void InitTimer(InputHandler input)
+    {
+        Timer timer = new Timer(this);
+
+        _timerManager.Init(input, timer);
     }
 }
