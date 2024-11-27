@@ -7,7 +7,7 @@ public class WalletManager : MonoBehaviour
     private bool _isInit;
     private InputHandler _inputHandler;
 
-    private int _currentType;
+    private int _currentType = 0;
 
     public void Init(InputHandler input, Wallet wallet)
     {
@@ -26,26 +26,26 @@ public class WalletManager : MonoBehaviour
 
         if (_inputHandler.GetAddKeyDown)
         {
-            CurrentWallet.Currencies[(int)_currentType].Add(1);
-            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[(int)_currentType].Value.Value);
+            CurrentWallet.Currencies[_currentType].Add(1);
+            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[_currentType].Value.Value);
         }
 
         if (_inputHandler.GetRemoveKeyDown)
         {
-            CurrentWallet.Currencies[(int)_currentType].Remove(1);
-            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[(int)_currentType].Value.Value);
+            CurrentWallet.Currencies[_currentType].Remove(1);
+            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[_currentType].Value.Value);
         }
 
         if (_inputHandler.GetNextKeyDown)
         {
             ChooseNext();
-            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[(int)_currentType].Value.Value);
+            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[_currentType].Value.Value);
         }
 
         if (_inputHandler.GetPreviousKeyDown)
         {
             ChoosePrevious();
-            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[(int)_currentType].Value.Value);
+            Debug.Log(_currentType.ToString() + CurrentWallet.Currencies[_currentType].Value.Value);
         }
     }
 
@@ -54,7 +54,7 @@ public class WalletManager : MonoBehaviour
         int current = _currentType;
         current++;
 
-        current = Mathf.Min(current, CurrentWallet.Currencies.Count);
+        _currentType = Mathf.Min(current, CurrentWallet.Currencies.Count - 1);
     }
 
     private void ChoosePrevious()
@@ -62,6 +62,6 @@ public class WalletManager : MonoBehaviour
         int current = _currentType;
         current--;
 
-        current = Mathf.Max(current, CurrentWallet.Currencies.Count);
+        _currentType = Mathf.Max(current, 0);
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class InputHandler
 {
     private const KeyCode AddKey = KeyCode.RightArrow;
     private const KeyCode RemoveKey = KeyCode.LeftArrow;
