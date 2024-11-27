@@ -11,9 +11,9 @@ public class BaseTimerUI : MonoBehaviour
     {
         _timer = timer;
         _maxValue = maxValue;
-        OnValueChange(0);
-
         OnInit();
+
+        OnValueChange(maxValue);
 
         _timer.TimeChanged += OnValueChange;
     }

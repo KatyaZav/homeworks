@@ -14,7 +14,8 @@ public class Bootstrap : MonoBehaviour
 
     [SerializeField] private TimerManager _timerManager;
     [SerializeField] private Transform _timerPlace;
-    [SerializeField] private BaseTimerUI[] _prefabTimersUI;
+    [SerializeField] private SliderTimerUI _prefabTimersUI;
+    [SerializeField] private ObjectTimer _heartTimer;
         
     void Start()
     {
@@ -45,10 +46,10 @@ public class Bootstrap : MonoBehaviour
 
         _timerManager.Init(input, timer, Time);
 
-        foreach (var prefabTimerUI in _prefabTimersUI)
-        {
-            BaseTimerUI timerUi = Instantiate(prefabTimerUI, _timerPlace);
-            timerUi.Init(timer, Time);
-        }
+        BaseTimerUI timerUi = Instantiate(_prefabTimersUI, _timerPlace);
+        timerUi.Init(timer, Time);
+
+        ObjectTimer heartTimerUI = Instantiate(_heartTimer, _timerPlace);
+        heartTimerUI.Init(timer, Time);
     }
 }

@@ -402,8 +402,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33b58d6fdeb0f09488e3547b46fad988, type: 2}
   _timerManager: {fileID: 29059241}
   _timerPlace: {fileID: 957610410}
-  _prefabTimersUI:
-  - {fileID: 6327779079395012757, guid: a0935b3f4d5ddae47bc0c36f877cf2fd, type: 3}
+  _prefabTimersUI: {fileID: 6327779079395012757, guid: a0935b3f4d5ddae47bc0c36f877cf2fd, type: 3}
+  _heartTimer: {fileID: 2008181412073496672, guid: 9055c4766a325b14d8fe7e93bff63738, type: 3}
 --- !u!4 &801494038
 Transform:
   m_ObjectHideFlags: 0

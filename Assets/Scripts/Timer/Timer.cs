@@ -18,7 +18,7 @@ public class Timer
         _root = root;
     }
 
-    public float Time => _currentSeconds;
+    public float RemainingTime => _currentSeconds;
     public bool IsActive => _isStarted;
     public bool IsPause { get; private set; }
 
