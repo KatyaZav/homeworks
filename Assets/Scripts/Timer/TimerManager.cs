@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    private const float Time = 10;
-
     private InputHandler _input;
     private Timer _timer;
 
+    private float _maxTime;
     private bool _isInit;
-    public void Init(InputHandler input, Timer timer)
+    public void Init(InputHandler input, Timer timer, float maxTime)
     {
         _input = input;
         _timer = timer;
+        _maxTime = maxTime;
+
         _isInit = true;
     }
 
@@ -24,7 +25,7 @@ public class TimerManager : MonoBehaviour
 
         if (_input.GetStartTimerKeyDown)
         {
-            _timer.StartTimer(Time);
+            _timer.StartTimer(_maxTime);
         }
 
         if (_input.GetStopTimerKeyDown)

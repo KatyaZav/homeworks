@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
+    private const float Time = 10;
+
     [SerializeField] private WalletManager _walletManager;
     [SerializeField] private Transform _walletPosition;
 
@@ -11,6 +13,8 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private ValueConfig[] _valueConfigs;
 
     [SerializeField] private TimerManager _timerManager;
+    [SerializeField] private Transform _timerPlace;
+    [SerializeField] private BaseTimerUI[] _prefabTimersUI;
         
     void Start()
     {
@@ -39,6 +43,12 @@ public class Bootstrap : MonoBehaviour
     {
         Timer timer = new Timer(this);
 
-        _timerManager.Init(input, timer);
+        _timerManager.Init(input, timer, Time);
+
+        foreach (var prefabTimerUI in _prefabTimersUI)
+        {
+            BaseTimerUI timerUi = Instantiate(prefabTimerUI, _timerPlace);
+            timerUi.Init(timer, Time);
+        }
     }
 }

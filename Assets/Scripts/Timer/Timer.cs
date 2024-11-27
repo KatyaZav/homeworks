@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Timer
@@ -23,6 +24,12 @@ public class Timer
     public void StartTimer(float seconds)
     {
         Debug.Log("Start timer");
+
+        if (_coroutine != null)
+        {
+            StopTimer();
+        }
+
         _coroutine = _root.StartCoroutine(TimerLogic(seconds));
         _isStarted = true;
     }
@@ -59,7 +66,9 @@ public class Timer
         _root.StopCoroutine(_coroutine);
         _coroutine = null;
         _currentSeconds = 0;
+
         _isStarted = false;
+        IsPause = false;
     }
 
     private IEnumerator TimerLogic(float time)
