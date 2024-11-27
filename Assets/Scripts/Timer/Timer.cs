@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Timer
@@ -19,6 +18,8 @@ public class Timer
         _root = root;
     }
 
+    public float Time => _currentSeconds;
+    public bool IsActive => _isStarted;
     public bool IsPause { get; private set; }
 
     public void StartTimer(float seconds)
