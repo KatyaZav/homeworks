@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Wallet
 {
-    public Wallet(Currency money, Currency diamonds, Currency energy)
+    public Wallet(List<Currency> args)
     {
         Currencies = new Dictionary<CurrenceType, Currency>();
 
-        Currencies[CurrenceType.money] = money;
-        Currencies[CurrenceType.diamonds] = diamonds;
-        Currencies[CurrenceType.energy] = energy;
+        foreach (Currency currency in args)
+        {
+            if (Currencies.Any(c => c.Value.Config.Type == currency.Config.Type))
+                throw new System.ArgumentException("Wallet already contains value");
+
+            Currencies[currency.Config.Type] = currency;
+        }
     }
 
     public Dictionary<CurrenceType, Currency> Currencies { get; private set; }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private Transform _walletPosition;
 
     [SerializeField] private ValueUi _valueUiPrefab;
-    [SerializeField] private ValueConfig[] _valueConfigs;
+    [SerializeField] private List<ValueConfig> _valueConfigs;
 
     [SerializeField] private TimerManager _timerManager;
     [SerializeField] private Transform _timerPlace;
@@ -27,19 +28,38 @@ public class Bootstrap : MonoBehaviour
 
     private void InitWallet(InputHandler input)
     {
-        var currentWallet = new Wallet(
-            new Currency(new Stat<int>(0)), new Currency(new Stat<int>(0)), new Currency(new Stat<int>(0)));
+        List<Currency> currents = new();
+
+        foreach (CurrenceType type in Enum.GetValues(typeof(CurrenceType)))
+        {
+            ValueConfig config = _valueConfigs.Find(c => c.Type == type);
+
+            if (config == null)
+                throw new System.NullReferenceException($"Not found value of type {type}");
+
+            Currency curency = new Currency(new Stat<int>(config.OriginalValue), config);
+            currents.Add(curency);
+
+        }
+
+        var currentWallet = new Wallet(currents);
 
         _walletManager.Init(input, currentWallet);
-
-        int index = 0;
-        foreach (var config in _valueConfigs)
+        
+        foreach (var currency in currentWallet.Currencies)
         {
-            ValueUi valueUi = Instantiate(_valueUiPrefab, _walletPosition);
-            valueUi.Init(_walletManager.CurrentWallet.Currencies[index], _valueConfigs[index]);
-            index++;
+            MakeCurrenceUI(currency.Value.Config);
         }
+        
+        //MakeCurrenceUI(config);
     }
+
+    private void MakeCurrenceUI(ValueConfig config)
+    {
+        ValueUi valueUi = Instantiate(_valueUiPrefab, _walletPosition);
+        valueUi.Init(_walletManager.CurrentWallet.Currencies[config.Type], config);
+    }
+
     private void InitTimer(InputHandler input)
     {
         Timer timer = new Timer(this);

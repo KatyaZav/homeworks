@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Currency
 {
-    public Currency(Stat<int> value)
+    public Currency(Stat<int> value, ValueConfig config)
     {
         Value = value;
+        Config = config;
     }
 
     public Stat<int> Value { get; private set; }
+    public ValueConfig Config { get;}
 
     public void Add(int amount)
     {

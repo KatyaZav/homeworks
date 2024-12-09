@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6becc7d53bc7a4ab69f4ccf0174411, type: 3}
   m_Name: Diamonds
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
   <ImageColor>k__BackingField: {r: 0.20104711, g: 1, b: 0.14117646, a: 1}
