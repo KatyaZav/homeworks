@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public class ValueUi : MonoBehaviour
+public class ValueView : MonoBehaviour
 {
     [SerializeField] private Text _text;
     [SerializeField] private Image _image;

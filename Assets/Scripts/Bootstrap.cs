@@ -10,7 +10,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private WalletManager _walletManager;
     [SerializeField] private Transform _walletPosition;
 
-    [SerializeField] private ValueUi _valueUiPrefab;
+    [SerializeField] private ValueView _valueUiPrefab;
     [SerializeField] private List<ValueConfig> _valueConfigs;
 
     [SerializeField] private TimerManager _timerManager;
@@ -56,7 +56,7 @@ public class Bootstrap : MonoBehaviour
 
     private void MakeCurrenceUI(ValueConfig config)
     {
-        ValueUi valueUi = Instantiate(_valueUiPrefab, _walletPosition);
+        ValueView valueUi = Instantiate(_valueUiPrefab, _walletPosition);
         valueUi.Init(_walletManager.CurrentWallet.Currencies[config.Type], config);
     }
 
