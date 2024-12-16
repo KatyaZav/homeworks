@@ -6,50 +6,48 @@ public class Inventory
 {
     public const int ZeroValue = 0;
 
-    private List<Item> _items = new();
+    private List<InventoryCell> _items = new();
     private int _maxSize;
 
-    public Inventory(List<Item> items, int maxSize)
+    public Inventory(List<InventoryCell> items, int maxSize)
     {
         _items = items;
         _maxSize = maxSize;
     }
 
-    public List<Item> Items => _items;
+    public IReadOnlyList<InventoryCell> Items => _items; 
     public int CurrentSize => _items.Sum(item => item.Count);
+    
     public bool CanAdd(int count) => CurrentSize + count <= _maxSize;
+    public bool TryGetCellByItemId(int id) => _items.FirstOrDefault(item => item.Id == id) != null;
 
-    private Item GetItemById(int id) => _items.First(item => item.Id == id);
+    private InventoryCell GetCellByItemID(int id) => _items.First(item => item.Id == id);
 
-    public void Add(Item item)
+    public void Add(Item item, int count)
     {
-        if (CanAdd(item.Count) == false)
+        if (CanAdd(count) == false)
             throw new Exception("Inventory are full");
 
-        Item newItem = GetItemById(item.Id);
-        if (newItem != null)
+        if (TryGetCellByItemId(item.Id))
         {
-            newItem.Add(item.Count);
+            GetCellByItemID(item.Id).TryAdd(item, count);
         }
         else
         {
-            _items.Add(item);
+            _items.Add(new InventoryCell(item, count)); 
         }
     }
 
     public Item GetItemsBy(int id, int count)
     {
-        Item item = GetItemById(id);
-
-        if (item == null)
-            throw new NullReferenceException("Item not found");
-
-        Item returnItem = new Item(id, count);
-        item.Collect(count);
-
-        if (item.Count == ZeroValue)
-            _items.Remove(item);
-
-        return returnItem;
+        if (TryGetCellByItemId(id))
+        {
+            Item item = GetCellByItemID(id).CollectItemsCount(count);
+            return item;
+        }
+        else
+        {
+            throw new ArgumentNullException($"Inventory has no item with id {id}");
+        }
     }
 }

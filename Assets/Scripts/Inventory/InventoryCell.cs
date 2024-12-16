@@ -8,14 +8,16 @@ public class InventoryCell
 
     public InventoryCell(Item items, int count)
     {
-        Items = items;
+        Item = items;
         Count = count;
     }
 
-    public Item Items { get; private set; }
+    public int Id { get; private set; }
     public int Count { get; private set; }
+    
+    private Item Item { get; set; }
 
-    public bool CheakCorrectItem(Item item) => item == Items;
+    public bool CheakCorrectItem(Item item) => item == Item;
 
     public void TryAdd(Item item, int count)
     {
@@ -29,11 +31,11 @@ public class InventoryCell
         }
     }
 
-    public void TryRemove(Item item, int count)
+    public Item TryCollect(Item item, int count)
     {
         if (CheakCorrectItem(item))
         {
-            GetItemsCount(count);
+            return CollectItemsCount(count);
         }
         else
         {
@@ -41,6 +43,17 @@ public class InventoryCell
         }
     }
 
+    public Item CollectItemsCount(int count)
+    {
+        if (Count < count)
+            throw new ArgumentOutOfRangeException("Not enough items count to remove");
+
+        if (count < 0)
+            throw new ArgumentOutOfRangeException("Try to collect zero items count");
+
+        Count -= count;
+        return Item;
+    }
 
     private void AddItemsCount(int count)
     {
@@ -50,14 +63,4 @@ public class InventoryCell
         Count += count;
     }
 
-    private void GetItemsCount(int count)
-    {
-        if (Count < count)
-            throw new ArgumentOutOfRangeException("Not enough items count to remove");
-
-        if (count < 0)
-            throw new ArgumentOutOfRangeException("Try to collect zero items count");
-
-        Count -= count;
-    }
 }
